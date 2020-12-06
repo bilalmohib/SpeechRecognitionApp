@@ -171,11 +171,11 @@
                     select_dialect.style.visibility = list[1].length == 1 ? 'hidden' : 'visible';
                 }
 
-                let create_email = false;
+                var create_email = false;
                 let final_transcript = '';
-                let recognizing = false;
-                let ignore_onend;
-                let start_timestamp;
+                var recognizing = false;
+                var ignore_onend;
+                var start_timestamp;
                 if (!('webkitSpeechRecognition' in window)) {
                     upgrade();
                 } else {
