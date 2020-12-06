@@ -172,7 +172,7 @@
                 }
 
                 var create_email = false;
-                let final_transcript = '';
+                var final_transcript = '';
                 var recognizing = false;
                 var ignore_onend;
                 var start_timestamp;
@@ -180,7 +180,7 @@
                     upgrade();
                 } else {
                     start_button.style.display = 'inline-block';
-                    let recognition = new webkitSpeechRecognition();
+                    var recognition = new webkitSpeechRecognition();
                     recognition.continuous = true;
                     recognition.interimResults = true;
 
@@ -243,10 +243,9 @@
                                 // https://stackoverflow.com/questions/33526213/using-the-google-web-speech-api-on-mobile
                                 // + event.results[i][0].confidence - Sumran
                                 final_transcript += event.results[i][0].transcript                 
-                            } 
-                            //else {
-                            //    interim_transcript += event.results[i][0].transcript;
-                            //}
+                            } else {
+                                interim_transcript += event.results[i][0].transcript;
+                            }
                         }
                         // final_transcript = capitalize(final_transcript);
                         final_span.innerHTML = linebreak(final_transcript);
@@ -262,8 +261,8 @@
                     showInfo('info_upgrade');
                 }
 
-                let two_line = /\n\n/g;
-                let one_line = /\n/g;
+                var two_line = /\n\n/g;
+                var one_line = /\n/g;
 
                 function linebreak(s) {
                     return s.replace(two_line, '<p></p>').replace(one_line, '<br>');
@@ -320,7 +319,7 @@
                     recognition.start();
                     ignore_onend = false;
                     final_span.innerHTML = '';
-                     interim_span.innerHTML = '';
+                    // interim_span.innerHTML = '';
                     start_img.src = 'mic-slash.gif';
                     showInfo('info_allow');
                     showButtons('none');
