@@ -236,7 +236,8 @@
 
                     recognition.onresult = function(event) {
                         var interim_transcript = '';
-                        for (var i = event.resultIndex; i < event.results.length; ++i) {
+                        
+                        for (var i = event.resultIndex; i < event.results.length; i++) {
                             if (event.results[i].isFinal) {
                                 // final_transcript += event.results[i][0].transcript;
                                 // https://stackoverflow.com/questions/33526213/using-the-google-web-speech-api-on-mobile
@@ -246,7 +247,7 @@
                                 interim_transcript += event.results[i][0].transcript;
                             }
                         }
-                        final_transcript = capitalize(final_transcript);
+                        // final_transcript = capitalize(final_transcript);
                         final_span.innerHTML = linebreak(final_transcript);
                         // interim_span.innerHTML = linebreak(interim_transcript);
                         if (final_transcript || interim_transcript) {
