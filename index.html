@@ -243,9 +243,10 @@
                                 // https://stackoverflow.com/questions/33526213/using-the-google-web-speech-api-on-mobile
                                 // + event.results[i][0].confidence - Sumran
                                 final_transcript += event.results[i][0].transcript                 
-                            } else {
-                                interim_transcript += event.results[i][0].transcript;
-                            }
+                            } 
+                            //else {
+                            //    interim_transcript += event.results[i][0].transcript;
+                            //}
                         }
                         // final_transcript = capitalize(final_transcript);
                         final_span.innerHTML = linebreak(final_transcript);
@@ -319,7 +320,7 @@
                     recognition.start();
                     ignore_onend = false;
                     final_span.innerHTML = '';
-                    // interim_span.innerHTML = '';
+                     interim_span.innerHTML = '';
                     start_img.src = 'mic-slash.gif';
                     showInfo('info_allow');
                     showButtons('none');
