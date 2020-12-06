@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale = 1">
+    <!-- <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css"> -->
+    <link rel="stylesheet" type="text/css" href="style.css" media="screen" />
+    <!-- <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script> -->
+    <!-- <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script> -->
+    <script src="index.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.87/pdf.js"></script>
+    <script src="html2pdf.bundle.min.js"></script>
+
+</head>
+
+
+
+<body>
+    <div data-role="page" id="pageone">
+        <div data-role="header">
+            <div align="left">
+                <h1>Web Speech</h1>
+            </div>
+        </div>
+        <div class="tab">
+            <button class="tablinks" onclick="openCity(event, 'speechtotext')">Speech To Text</button>
+            <button class="tablinks" onclick="openCity(event, 'texttospeech')">Text To Speech</button>
+        </div>
+        <div id="speechtotext" class="tabcontent">
+            <div id="info">
+                <p id="info_start">Click on the microphone icon and begin speaking.</p>
+                <p id="info_speak_now">Speak now.</p>
+                <p id="info_no_speech">No speech was detected. You may need to adjust your
+                    <a href="//support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892">
+                    microphone settings</a>.</p>
+                <p id="info_no_microphone" style="display:none">
+                    No microphone was found. Ensure that a microphone is installed and that
+                    <a href="//support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892">
+                  microphone settings</a> are configured correctly.</p>
+                <p id="info_allow">Click the "Allow" button above to enable your microphone.</p>
+                <p id="info_denied">Permission to use microphone was denied.</p>
+                <p id="info_blocked">Permission to use microphone is blocked. To change, go to chrome://settings/contentExceptions#media-stream</p>
+                <p id="info_upgrade">Web Speech API is not supported by this browser. Upgrade to <a href="//www.google.com/chrome">Chrome</a> version 25 or later.</p>
+            </div>
+            <div id="results">
+                <span id="final_span" class="final"></span>
+                <span id="interim_span" class="interim"></span>
+                <p>
+                    <!-- <textarea id="final_span interim_span" rows="20" class="final interim">
+                </textarea> -->
+            </div>
+            <div class="center">
+                <!-- <button id="start_button" onclick="">
+                    <img id="start_img" src="download-32.gif" alt="Start"></button> -->
+                <button id="start_button" onclick="startButton(event)">
+                  <img id="start_img" src="mic.gif" alt="Start"></button>
+                <!-- <button id="start_button" onclick="copyButton()">
+                    <img id="start_img" src="copy-32.gif" alt="Start"></button> -->
+                <!--   Copy and Paste</button> -->
+
+
+            </div>
+            <div class="center">
+                <div class="sidebyside" style="text-align:right">
+                    <button id="copy_button" class="button" onclick="">
+                    Save txt</button>
+                    <!-- <div id="copy_info" class="info">
+                        Press Control-C to copy text.<br>(Command-C on Mac.)
+                    </div> -->
+                </div>
+                <div class="sidebyside">
+                    <button id="email_button" class="button" onclick="generatePDF()">
+                    Save PDF</button>
+                    <!-- <div id="download_info" class="info">
+                        Text sent to default email application.<br> (See chrome://settings/handlers to change.)
+                    </div> -->
+                </div>
+                <p>
+                    <div id="div_language">
+                        <select id="select_language" onchange="updateCountry()"></select> &nbsp;&nbsp;
+                        <select id="select_dialect"></select>
+                    </div>
+            </div>
+            <script>
+                var langs = [
+                    ['Afrikaans', ['af-ZA']],
+                    ['Bahasa Indonesia', ['id-ID']],
+                    ['Bahasa Melayu', ['ms-MY']],
+                    ['CatalÃ ', ['ca-ES']],
+                    ['ÄŒeÅ¡tina', ['cs-CZ']],
+                    ['Deutsch', ['de-DE']],
+                    ['English', ['en-AU', 'Australia'],
+                        ['en-CA', 'Canada'],
+                        ['en-IN', 'India'],
+                        ['en-NZ', 'New Zealand'],
+                        ['en-ZA', 'South Africa'],
+                        ['en-GB', 'United Kingdom'],
+                        ['en-US', 'United States']
+                    ],
+                    ['EspaÃ±ol', ['es-AR', 'Argentina'],
+                        ['es-BO', 'Bolivia'],
+                        ['es-CL', 'Chile'],
+                        ['es-CO', 'Colombia'],
+                        ['es-CR', 'Costa Rica'],
+                        ['es-EC', 'Ecuador'],
+                        ['es-SV', 'El Salvador'],
+                        ['es-ES', 'EspaÃ±a'],
+                        ['es-US', 'Estados Unidos'],
+                        ['es-GT', 'Guatemala'],
+                        ['es-HN', 'Honduras'],
+                        ['es-MX', 'MÃ©xico'],
+                        ['es-NI', 'Nicaragua'],
+                        ['es-PA', 'PanamÃ¡'],
+                        ['es-PY', 'Paraguay'],
+                        ['es-PE', 'PerÃº'],
+                        ['es-PR', 'Puerto Rico'],
+                        ['es-DO', 'RepÃºblica Dominicana'],
+                        ['es-UY', 'Uruguay'],
+                        ['es-VE', 'Venezuela']
+                    ],
+                    ['Euskara', ['eu-ES']],
+                    ['FranÃ§ais', ['fr-FR']],
+                    ['Galego', ['gl-ES']],
+                    ['Hrvatski', ['hr_HR']],
+                    ['IsiZulu', ['zu-ZA']],
+                    ['Ãslenska', ['is-IS']],
+                    ['Italiano', ['it-IT', 'Italia'],
+                        ['it-CH', 'Svizzera']
+                    ],
+                    ['Magyar', ['hu-HU']],
+                    ['Nederlands', ['nl-NL']],
+                    ['Norsk bokmÃ¥l', ['nb-NO']],
+                    ['Polski', ['pl-PL']],
+                    ['PortuguÃªs', ['pt-BR', 'Brasil'],
+                        ['pt-PT', 'Portugal']
+                    ],
+                    ['RomÃ¢nÄƒ', ['ro-RO']],
+                    ['SlovenÄina', ['sk-SK']],
+                    ['Suomi', ['fi-FI']],
+                    ['Svenska', ['sv-SE']],
+                    ['TÃ¼rkÃ§e', ['tr-TR']],
+                    ['Ð±ÑŠÐ»Ð³Ð°Ñ€ÑÐºÐ¸', ['bg-BG']],
+                    ['PÑƒÑÑÐºÐ¸Ð¹', ['ru-RU']],
+                    ['Ð¡Ñ€Ð¿ÑÐºÐ¸', ['sr-RS']],
+                    ['í•œêµ­ì–´', ['ko-KR']],
+                    ['ä¸­æ–‡', ['cmn-Hans-CN', 'æ™®é€šè¯ (ä¸­å›½å¤§é™†)'],
+                        ['cmn-Hans-HK', 'æ™®é€šè¯ (é¦™æ¸¯)'],
+                        ['cmn-Hant-TW', 'ä¸­æ–‡ (å°ç£)'],
+                        ['yue-Hant-HK', 'ç²µèªž (é¦™æ¸¯)']
+                    ],
+                    ['æ—¥æœ¬èªž', ['ja-JP']],
+                    ['Lingua latÄ«na', ['la']]
+                ];
+
+                for (var i = 0; i < langs.length; i++) {
+                    select_language.options[i] = new Option(langs[i][0], i);
+                }
+                select_language.selectedIndex = 6;
+                updateCountry();
+                select_dialect.selectedIndex = 6;
+                showInfo('info_start');
+
+                function updateCountry() {
+                    for (var i = select_dialect.options.length - 1; i >= 0; i--) {
+                        select_dialect.remove(i);
+                    }
+                    var list = langs[select_language.selectedIndex];
+                    for (var i = 1; i < list.length; i++) {
+                        select_dialect.options.add(new Option(list[i][1], list[i][0]));
+                    }
+                    select_dialect.style.visibility = list[1].length == 1 ? 'hidden' : 'visible';
+                }
+
+                var create_email = false;
+                var final_transcript = '';
+                var recognizing = false;
+                var ignore_onend;
+                var start_timestamp;
+                if (!('webkitSpeechRecognition' in window)) {
+                    upgrade();
+                } else {
+                    start_button.style.display = 'inline-block';
+                    var recognition = new webkitSpeechRecognition();
+                    recognition.continuous = true;
+                    recognition.interimResults = true;
+
+                    recognition.onstart = function() {
+                        recognizing = true;
+                        showInfo('info_speak_now');
+                        start_img.src = 'mic-animate.gif';
+                    };
+
+                    recognition.onerror = function(event) {
+                        if (event.error == 'no-speech') {
+                            start_img.src = 'mic.gif';
+                            showInfo('info_no_speech');
+                            ignore_onend = true;
+                        }
+                        if (event.error == 'audio-capture') {
+                            start_img.src = 'mic.gif';
+                            showInfo('info_no_microphone');
+                            ignore_onend = true;
+                        }
+                        if (event.error == 'not-allowed') {
+                            if (event.timeStamp - start_timestamp < 100) {
+                                showInfo('info_blocked');
+                            } else {
+                                showInfo('info_denied');
+                            }
+                            ignore_onend = true;
+                        }
+                    };
+
+                    recognition.onend = function() {
+                        recognizing = false;
+                        if (ignore_onend) {
+                            return;
+                        }
+                        start_img.src = 'mic.gif';
+                        if (!final_transcript) {
+                            showInfo('info_start');
+                            return;
+                        }
+                        showInfo('');
+                        if (window.getSelection) {
+                            window.getSelection().removeAllRanges();
+                            var range = document.createRange();
+                            range.selectNode(document.getElementById('final_span'));
+                            window.getSelection().addRange(range);
+                        }
+                        if (create_email) {
+                            create_email = false;
+                            createEmail();
+                        }
+                    };
+
+                    recognition.onresult = function(event) {
+                        var interim_transcript = '';
+                        for (var i = event.resultIndex; i < event.results.length; ++i) {
+                            if (event.results[i].isFinal) {
+                                // final_transcript += event.results[i][0].transcript;
+                                // https://stackoverflow.com/questions/33526213/using-the-google-web-speech-api-on-mobile
+                                // + event.results[i][0].confidence - Sumran
+                                final_transcript += event.results[i][0].transcript                 
+                            } else {
+                                interim_transcript += event.results[i][0].transcript;
+                            }
+                        }
+                        final_transcript = capitalize(final_transcript);
+                        final_span.innerHTML = linebreak(final_transcript);
+                        interim_span.innerHTML = linebreak(interim_transcript);
+                        if (final_transcript || interim_transcript) {
+                            showButtons('inline-block');
+                        }
+                    };
+                }
+
+                function upgrade() {
+                    start_button.style.visibility = 'hidden';
+                    showInfo('info_upgrade');
+                }
+
+                var two_line = /\n\n/g;
+                var one_line = /\n/g;
+
+                function linebreak(s) {
+                    return s.replace(two_line, '<p></p>').replace(one_line, '<br>');
+                }
+
+                var first_char = /\S/;
+
+                function capitalize(s) {
+                    return s.replace(first_char, function(m) {
+                        return m.toUpperCase();
+                    });
+                }
+
+                function createEmail() {
+                    var n = final_transcript.indexOf('\n');
+                    if (n < 0 || n >= 80) {
+                        n = 40 + final_transcript.substring(40).indexOf(' ');
+                    }
+                    var subject = encodeURI(final_transcript.substring(0, n));
+                    var body = encodeURI(final_transcript.substring(n + 1));
+                    window.location.href = 'mailto:?subject=' + subject + '&body=' + body;
+                }
+
+                function copyButton() {
+                    if (recognizing) {
+                        recognizing = false;
+                        recognition.stop();
+                    }
+                    copy_button.style.display = 'none';
+                    copy_info.style.display = 'inline-block';
+                    showInfo('');
+                }
+
+                function emailButton() {
+                    if (recognizing) {
+                        create_email = true;
+                        recognizing = false;
+                        recognition.stop();
+                    } else {
+                        createEmail();
+                    }
+                    email_button.style.display = 'none';
+                    email_info.style.display = 'inline-block';
+                    showInfo('');
+                }
+
+                function startButton(event) {
+                    if (recognizing) {
+                        recognition.stop();
+                        return;
+                    }
+                    final_transcript = '';
+                    recognition.lang = select_dialect.value;
+                    recognition.start();
+                    ignore_onend = false;
+                    final_span.innerHTML = '';
+                    // interim_span.innerHTML = '';
+                    start_img.src = 'mic-slash.gif';
+                    showInfo('info_allow');
+                    showButtons('none');
+                    start_timestamp = event.timeStamp;
+                }
+
+                function showInfo(s) {
+                    // add info so don't error
+                    info = document.getElementById("info");
+                    if (s) {
+                        for (var child = info.firstChild; child; child = child.nextSibling) {
+                            if (child.style) {
+                                child.style.display = child.id == s ? 'inline' : 'none';
+                            }
+                        }
+                        info.style.visibility = 'visible';
+                    } else {
+                        info.style.visibility = 'hidden';
+                    }
+                }
+
+                var current_style;
+
+                function showButtons(style) {
+                    if (style == current_style) {
+                        return;
+                    }
+                    current_style = style;
+                    copy_button.style.display = style;
+                    email_button.style.display = style;
+                    // copy_info.style.display = 'none';
+                    // email_info.style.display = 'none';
+                }
+
+                function download(filename, text) {
+                    var element = document.createElement('a');
+                    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+                    element.setAttribute('download', filename);
+
+                    element.style.display = 'none';
+                    document.body.appendChild(element);
+
+                    element.click();
+
+                    document.body.removeChild(element);
+                }
+
+                // Start file download.
+                document.getElementById("copy_button").addEventListener("click", function() {
+                    // Generate download of hello.txt file with some content
+                    var localdate = generateNameBasedTime();
+                    var filename = "STT_" + localdate + ".txt";
+
+                    download(filename, text);
+                }, false);
+
+                function generatePDF() {
+                    const element = document.getElementById("final_span").innerHTML;
+                    // Choose the element and save the PDF for our user.
+                    var localdate = generateNameBasedTime();
+                    var filename01 = "STT_" + localdate + ".pdf";
+                    var opt = {
+                        margin: 1,
+                        filename: filename01,
+                        jsPDF: {
+                            unit: 'in',
+                            format: 'letter',
+                            orientation: 'portrait'
+                        }
+                    };
+                    html2pdf().set(opt).from(element).save();
+                }
+
+                function generateNameBasedTime() {
+                    const now = new Date();
+                    const offsetMs = now.getTimezoneOffset() * 60 * 1000;
+                    const dateLocal = new Date(now.getTime() - offsetMs);
+                    const text = document.getElementById("final_span").innerHTML;
+                    var localdate = dateLocal.toISOString().slice(0, 19).replace('/-/g', "").replace("T", "_");
+                    return localdate;
+                }
+            </script>
+        </div>
+
+        <div id="texttospeech" class="tabcontent">
+            <script type="text/javascript">
+                // var u = new SpeechSynthesisUtterance();
+                // u.text = 'Hello World';
+                // u.lang = 'en-US';
+                // u.rate = 1.2;
+                // u.onend = function(event) {
+                //     alert('Finished in ' + event.elapsedTime + ' seconds.');
+                // }
+                // speechSynthesis.speak(u);
+
+                function playSpeech(event) {
+                    var u = new window.SpeechSynthesisUtterance();
+                    // u.text = 'Hello World';
+                    u.text = document.getElementById("myTextArea").value;
+                    u.lang = 'en-US';
+                    u.rate = document.getElementById("rate").value;
+                    u.pitch = document.getElementById("pitch").value;
+                    // u.onend = function(event) {
+                    //     alert('Finished in ' + event.elapsedTime + ' seconds.');
+                    // }
+                    event.preventDefault();
+                    // console.log("Start speech");
+                    window.speechSynthesis.cancel();
+                    window.speechSynthesis.speak(u);
+                    // alert('Finished in ' + event.elapsedTime + ' seconds.');
+                    // console.log("Finisih speech");
+                }
+
+                function pauseSpeech(event) {
+                    event.preventDefault();
+                    window.speechSynthesis.pause();
+                }
+
+                function resumeSpeech(event) {
+                    event.preventDefault();
+                    window.speechSynthesis.resume();
+                }
+
+                function stopSpeech(event) {
+                    event.preventDefault();
+                    window.speechSynthesis.cancel();
+                }
+            </script>
+            <div id="info" style="visibility: visible;">
+                <p id="info_start" style="display: inline;">Input text in the below and press the "play" button to hear it</p>
+            </div>
+            <div id="results">
+                <!-- <span id="final_span" class="final"></span>
+                <span id="interim_span" class="interim"></span> -->
+                <textarea id="myTextArea" rows="20" class="interim">We use 100% recycled paper, prioritize digital version and work with green hosting services who work with wind power, for this purpose we are green certified.We donate 100% of the profits we make as follow:50% To Global Warming Non-Profit Organization. 50% In activities supporting making this world a better place such as building and renovating schools and hospitals in underdeveloped countries, helping youth stay on the right path, reinsertion into the society of formerly incarcerated individuals and helping the social outcasts find a place where they belong.
+                </textarea>
+            </div>
+            <form>
+                <!-- <input type="text" class="txt"> -->
+                <div class="controls center">
+                    <button id="play" onclick="playSpeech(event)">Play</button>
+                    <button id="pause" onclick="pauseSpeech(event)">Pause</button>
+                    <button id="resume" onclick="resumeSpeech(event)">Resume</button>
+                    <button id="stop" onclick="stopSpeech(event)">Stop</button>
+                </div>
+                <div>
+                    <input id="input-file" type="file">
+                </div>
+                <div>
+                    <label for="rate">Rate</label><input type="range" min="0.5" max="2" value="1" step="0.1" id="rate" onchange="outputrate.value=value">
+                    <output id="outputrate">1</output>
+                </div>
+                <!-- <div class="rate-value"></div>
+                    <div class="clearfix"></div> -->
+                <div>
+                    <label for="pitch">Pitch</label><input type="range" min="0" max="2" value="1" step="0.1" id="pitch" onchange="outputpitch.value=value">
+                    <output id="outputpitch">1</output>
+                </div>
+                <!-- <div>
+                    <label for="pitch">Pitch</label><input type="range" min="0" max="2" value="1" step="0.1" id="pitch" onchange="outputpitch.value=value">
+                    <output id="outputpitch">1</output>
+                    <div class="pitch-value">1</div>
+                    <div class="clearfix"></div>
+                </div> -->
+                <!-- <select>
+            </select> -->
+                <script>
+                    document.getElementById('input-file').addEventListener('change', getFile)
+
+                    function getFile(event) {
+                        const input = event.target
+                        if ('files' in input && input.files.length > 0) {
+                            if (input.files[0].name.endsWith('txt')) {
+                                placeFileContent(
+                                    document.getElementById('myTextArea'),
+                                    input.files[0])
+                            } else if (input.files[0].name.endsWith('pdf')) {
+                                var file = input.files[0];
+                                var fileReader = new FileReader();
+
+                                fileReader.onload = function() {
+
+                                    //Turn array buffer into typed array
+                                    var typedarray = new Uint8Array(this.result);
+
+                                    //calling function to read from pdf file
+                                    getText(typedarray).then(function(text) {
+
+                                            /*Selected pdf file content is in the variable text. */
+                                            // $("#myTextArea").html(text);
+                                            document.getElementById("myTextArea").value = text;
+                                        }, function(reason) //Execute only when there is some error while reading pdf file
+                                        {
+                                            alert('Seems this file is broken, please upload another file');
+                                            console.error(reason);
+                                        });
+
+                                    //getText() function definition. This is the pdf reader function.
+                                    function getText(typedarray) {
+
+                                        //PDFJS should be able to read this typedarray content
+
+                                        var pdf = PDFJS.getDocument(typedarray);
+                                        return pdf.then(function(pdf) {
+
+                                            // get all pages text
+                                            var maxPages = pdf.pdfInfo.numPages;
+                                            var countPromises = [];
+                                            // collecting all page promises
+                                            for (var j = 1; j <= maxPages; j++) {
+                                                var page = pdf.getPage(j);
+
+                                                var txt = "";
+                                                countPromises.push(page.then(function(page) {
+                                                    // add page promise
+                                                    var textContent = page.getTextContent();
+
+                                                    return textContent.then(function(text) {
+                                                        // return content promise
+                                                        return text.items.map(function(s) {
+                                                            return s.str;
+                                                        }).join(''); // value page text
+                                                    });
+                                                }));
+                                            }
+
+                                            // Wait for all pages and join text
+                                            return Promise.all(countPromises).then(function(texts) {
+                                                return texts.join('');
+                                            });
+                                        });
+                                    }
+                                };
+                                //Read the file as ArrayBuffer
+                                fileReader.readAsArrayBuffer(file);
+                            }
+
+                        }
+                    }
+
+                    function placeFileContent(target, file) {
+                        readFileContent(file).then(content => {
+                            target.value = content
+                        }).catch(error => console.log(error))
+                    }
+
+                    function readFileContent(file) {
+                        const reader = new FileReader()
+                        return new Promise((resolve, reject) => {
+                            reader.onload = event => resolve(event.target.result)
+                            reader.onerror = error => reject(error)
+                            reader.readAsText(file)
+                        })
+                    }
+                </script>
+            </form>
+        </div>
+        <div data-role="footer">
+            <h4>Copyleft Â© 2020.
+                <br><a href="http://dvcs.w3.org/hg/speech-api/raw-file/tip/speechapi.html">
+                    Web Speech API</a>
+            </h4>
+        </div>
+    </div>
+</body>
+
+</html>
