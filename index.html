@@ -32,28 +32,33 @@
                 <p id="info_speak_now">Speak now.</p>
                 <p id="info_no_speech">No speech was detected. You may need to adjust your
                     <a href="//support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892">
-                    microphone settings</a>.</p>
+                        microphone settings</a>.</p>
                 <p id="info_no_microphone" style="display:none">
                     No microphone was found. Ensure that a microphone is installed and that
                     <a href="//support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892">
-                  microphone settings</a> are configured correctly.</p>
+                        microphone settings</a> are configured correctly.</p>
                 <p id="info_allow">Click the "Allow" button above to enable your microphone.</p>
                 <p id="info_denied">Permission to use microphone was denied.</p>
-                <p id="info_blocked">Permission to use microphone is blocked. To change, go to chrome://settings/contentExceptions#media-stream</p>
-                <p id="info_upgrade">Web Speech API is not supported by this browser. Upgrade to <a href="//www.google.com/chrome">Chrome</a> version 25 or later.</p>
+                <p id="info_blocked">Permission to use microphone is blocked. To change, go to
+                    chrome://settings/contentExceptions#media-stream</p>
+                <p id="info_upgrade">Web Speech API is not supported by this browser. Upgrade to <a
+                        href="//www.google.com/chrome">Chrome</a> version 25 or later.</p>
             </div>
             <div id="results">
-                <span id="final_span" class="final"></span>
+                <p id="final_span" class="final"></p>
                 <span id="interim_span" class="interim"></span>
                 <p>
                     <!-- <textarea id="final_span interim_span" rows="20" class="final interim">
                 </textarea> -->
             </div>
+            <div id="result2">
+
+            </div>
             <div class="center">
                 <!-- <button id="start_button" onclick="">
                     <img id="start_img" src="download-32.gif" alt="Start"></button> -->
                 <button id="start_button" onclick="startButton(event)">
-                  <img id="start_img" src="mic.gif" alt="Start"></button>
+                    <img id="start_img" src="mic.gif" alt="Start"></button>
                 <!-- <button id="start_button" onclick="copyButton()">
                     <img id="start_img" src="copy-32.gif" alt="Start"></button> -->
                 <!--   Copy and Paste</button> -->
@@ -63,23 +68,23 @@
             <div class="center">
                 <div class="sidebyside" style="text-align:right">
                     <button id="copy_button" class="button" onclick="">
-                    Save txt</button>
+                        Save txt</button>
                     <!-- <div id="copy_info" class="info">
                         Press Control-C to copy text.<br>(Command-C on Mac.)
                     </div> -->
                 </div>
                 <div class="sidebyside">
                     <button id="email_button" class="button" onclick="generatePDF()">
-                    Save PDF</button>
+                        Save PDF</button>
                     <!-- <div id="download_info" class="info">
                         Text sent to default email application.<br> (See chrome://settings/handlers to change.)
                     </div> -->
                 </div>
                 <p>
-                    <div id="div_language">
-                        <select id="select_language" onchange="updateCountry()"></select> &nbsp;&nbsp;
-                        <select id="select_dialect"></select>
-                    </div>
+                <div id="div_language">
+                    <select id="select_language" onchange="updateCountry()"></select> &nbsp;&nbsp;
+                    <select id="select_dialect"></select>
+                </div>
             </div>
             <script>
                 var langs = [
@@ -181,25 +186,38 @@
                 } else {
                     start_button.style.display = 'inline-block';
                     var recognition = new webkitSpeechRecognition();
-                    recognition.continuous = true;
+                    recognition.continuous = false;
                     recognition.interimResults = true;
 
-                    recognition.onstart = function() {
+                    recognition.onstart = function () {
+
+                        console.log(document.getElementById("final_span"));
                         recognizing = true;
                         showInfo('info_speak_now');
                         start_img.src = 'mic-animate.gif';
                     };
 
-                    recognition.onerror = function(event) {
-                        if (event.error == 'no-speech') {
-                            start_img.src = 'mic.gif';
-                            showInfo('info_no_speech');
-                            ignore_onend = true;
-                        }
-                        if (event.error == 'audio-capture') {
-                            start_img.src = 'mic.gif';
+                    function runWhenNoSpeech(){
+                        start_img.src = 'mic.gif';
+                        showInfo('info_no_speech');
+                        ignore_onend = true;
+                        console.log("Koi Bola hi nahi")
+                    }
+                    function runWhenNoMic(){
+                        start_img.src = 'mic.gif';
                             showInfo('info_no_microphone');
                             ignore_onend = true;
+                    }
+
+                    recognition.onerror = function (event) {
+                        if (event.error == 'no-speech') {
+                            
+                            setTimeout(runWhenNoSpeech, 5000);
+                            
+                        }
+                        if (event.error == 'audio-capture') {
+                            setTimeout(runWhenNoMic, 5000);
+                             
                         }
                         if (event.error == 'not-allowed') {
                             if (event.timeStamp - start_timestamp < 100) {
@@ -211,8 +229,13 @@
                         }
                     };
 
-                    recognition.onend = function() {
+                    
+                    recognition.onend = function () {
+                        console.log(document.getElementById("final_span").innerHTML)
+                        localStorage.setItem("previousText",document.getElementById("final_span").innerHTML);
+                        // document.getElementById("result").innerHTML=
                         recognizing = false;
+
                         if (ignore_onend) {
                             return;
                         }
@@ -234,14 +257,14 @@
                         }
                     };
 
-                    recognition.onresult = function(event) {
+                    recognition.onresult = function (event) {
                         var interim_transcript = '';
                         for (var i = event.resultIndex; i < event.results.length; ++i) {
                             if (event.results[i].isFinal) {
                                 // final_transcript += event.results[i][0].transcript;
                                 // https://stackoverflow.com/questions/33526213/using-the-google-web-speech-api-on-mobile
                                 // + event.results[i][0].confidence - Sumran
-                                final_transcript += event.results[i][0].transcript                 
+                                final_transcript += event.results[i][0].transcript
                             } else {
                                 interim_transcript += event.results[i][0].transcript;
                             }
@@ -270,7 +293,7 @@
                 var first_char = /\S/;
 
                 function capitalize(s) {
-                    return s.replace(first_char, function(m) {
+                    return s.replace(first_char, function (m) {
                         return m.toUpperCase();
                     });
                 }
@@ -313,11 +336,11 @@
                         recognition.stop();
                         return;
                     }
-                    final_transcript = '';
+                   //final_transcript = '';
                     recognition.lang = select_dialect.value;
                     recognition.start();
                     ignore_onend = false;
-                    final_span.innerHTML = '';
+                    //final_span.innerHTML = '';
                     // interim_span.innerHTML = '';
                     start_img.src = 'mic-slash.gif';
                     showInfo('info_allow');
@@ -367,7 +390,7 @@
                 }
 
                 // Start file download.
-                document.getElementById("copy_button").addEventListener("click", function() {
+                document.getElementById("copy_button").addEventListener("click", function () {
                     // Generate download of hello.txt file with some content
                     var localdate = generateNameBasedTime();
                     var filename = "STT_" + localdate + ".txt";
@@ -448,7 +471,8 @@
                 }
             </script>
             <div id="info" style="visibility: visible;">
-                <p id="info_start" style="display: inline;">Input text in the below and press the "play" button to hear it</p>
+                <p id="info_start" style="display: inline;">Input text in the below and press the "play" button to hear
+                    it</p>
             </div>
             <div id="results">
                 <!-- <span id="final_span" class="final"></span>
@@ -468,13 +492,15 @@
                     <input id="input-file" type="file">
                 </div>
                 <div>
-                    <label for="rate">Rate</label><input type="range" min="0.5" max="2" value="1" step="0.1" id="rate" onchange="outputrate.value=value">
+                    <label for="rate">Rate</label><input type="range" min="0.5" max="2" value="1" step="0.1" id="rate"
+                        onchange="outputrate.value=value">
                     <output id="outputrate">1</output>
                 </div>
                 <!-- <div class="rate-value"></div>
                     <div class="clearfix"></div> -->
                 <div>
-                    <label for="pitch">Pitch</label><input type="range" min="0" max="2" value="1" step="0.1" id="pitch" onchange="outputpitch.value=value">
+                    <label for="pitch">Pitch</label><input type="range" min="0" max="2" value="1" step="0.1" id="pitch"
+                        onchange="outputpitch.value=value">
                     <output id="outputpitch">1</output>
                 </div>
                 <!-- <div>
@@ -499,22 +525,22 @@
                                 var file = input.files[0];
                                 var fileReader = new FileReader();
 
-                                fileReader.onload = function() {
+                                fileReader.onload = function () {
 
                                     //Turn array buffer into typed array
                                     var typedarray = new Uint8Array(this.result);
 
                                     //calling function to read from pdf file
-                                    getText(typedarray).then(function(text) {
+                                    getText(typedarray).then(function (text) {
 
-                                            /*Selected pdf file content is in the variable text. */
-                                            // $("#myTextArea").html(text);
-                                            document.getElementById("myTextArea").value = text;
-                                        }, function(reason) //Execute only when there is some error while reading pdf file
-                                        {
-                                            alert('Seems this file is broken, please upload another file');
-                                            console.error(reason);
-                                        });
+                                        /*Selected pdf file content is in the variable text. */
+                                        // $("#myTextArea").html(text);
+                                        document.getElementById("myTextArea").value = text;
+                                    }, function (reason) //Execute only when there is some error while reading pdf file
+                                    {
+                                        alert('Seems this file is broken, please upload another file');
+                                        console.error(reason);
+                                    });
 
                                     //getText() function definition. This is the pdf reader function.
                                     function getText(typedarray) {
@@ -522,7 +548,7 @@
                                         //PDFJS should be able to read this typedarray content
 
                                         var pdf = PDFJS.getDocument(typedarray);
-                                        return pdf.then(function(pdf) {
+                                        return pdf.then(function (pdf) {
 
                                             // get all pages text
                                             var maxPages = pdf.pdfInfo.numPages;
@@ -532,13 +558,13 @@
                                                 var page = pdf.getPage(j);
 
                                                 var txt = "";
-                                                countPromises.push(page.then(function(page) {
+                                                countPromises.push(page.then(function (page) {
                                                     // add page promise
                                                     var textContent = page.getTextContent();
 
-                                                    return textContent.then(function(text) {
+                                                    return textContent.then(function (text) {
                                                         // return content promise
-                                                        return text.items.map(function(s) {
+                                                        return text.items.map(function (s) {
                                                             return s.str;
                                                         }).join(''); // value page text
                                                     });
@@ -546,7 +572,7 @@
                                             }
 
                                             // Wait for all pages and join text
-                                            return Promise.all(countPromises).then(function(texts) {
+                                            return Promise.all(countPromises).then(function (texts) {
                                                 return texts.join('');
                                             });
                                         });
