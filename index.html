@@ -55,9 +55,11 @@
 
             </div>
             <div class="center">
+                <button onclick="endSpeechRecognition()" style="background-color:red;color: white;font-size: 25px;">End Speech Detection</button>
                 <!-- <button id="start_button" onclick="">
                     <img id="start_img" src="download-32.gif" alt="Start"></button> -->
-                <button id="start_button" onclick="startButton(event)">
+                <button style="margin-left: 30px;" id="start_button" onclick="startButton(event)">
+                                     <!--  -->
                     <img id="start_img" src="mic.gif" alt="Start"></button>
                 <!-- <button id="start_button" onclick="copyButton()">
                     <img id="start_img" src="copy-32.gif" alt="Start"></button> -->
@@ -197,27 +199,27 @@
                         start_img.src = 'mic-animate.gif';
                     };
 
-                    function runWhenNoSpeech(){
+                    function runWhenNoSpeech() {
                         start_img.src = 'mic.gif';
                         showInfo('info_no_speech');
                         ignore_onend = true;
                         console.log("Koi Bola hi nahi")
                     }
-                    function runWhenNoMic(){
+                    function runWhenNoMic() {
                         start_img.src = 'mic.gif';
-                            showInfo('info_no_microphone');
-                            ignore_onend = true;
+                        showInfo('info_no_microphone');
+                        ignore_onend = true;
                     }
 
                     recognition.onerror = function (event) {
                         if (event.error == 'no-speech') {
-                            
+
                             setTimeout(runWhenNoSpeech, 5000);
-                            
+
                         }
                         if (event.error == 'audio-capture') {
                             setTimeout(runWhenNoMic, 5000);
-                             
+
                         }
                         if (event.error == 'not-allowed') {
                             if (event.timeStamp - start_timestamp < 100) {
@@ -229,13 +231,21 @@
                         }
                     };
 
-                    
+
                     recognition.onend = function () {
                         console.log(document.getElementById("final_span").innerHTML)
-                        localStorage.setItem("previousText",document.getElementById("final_span").innerHTML);
+                        //localStorage.setItem("previousText",document.getElementById("final_span").innerHTML);
                         // document.getElementById("result").innerHTML=
-                        recognizing = false;
 
+
+                        recognition.start();
+
+
+                    };
+                    //Here the speech will end
+                    function endSpeechRecognition()
+                    {
+                        recognizing = false;
                         if (ignore_onend) {
                             return;
                         }
@@ -255,8 +265,7 @@
                             create_email = false;
                             createEmail();
                         }
-                    };
-
+                    }
                     recognition.onresult = function (event) {
                         var interim_transcript = '';
                         for (var i = event.resultIndex; i < event.results.length; ++i) {
@@ -280,7 +289,10 @@
 
                 function upgrade() {
                     start_button.style.visibility = 'hidden';
-                    showInfo('info_upgrade');
+                    //showInfo('info_upgrade');
+                    startButton(event);
+                    showInfo('info_speak_now');
+                    start_img.src = 'mic-animate.gif';
                 }
 
                 var two_line = /\n\n/g;
@@ -333,10 +345,11 @@
 
                 function startButton(event) {
                     if (recognizing) {
-                        recognition.stop();
-                        return;
+                        console.log("sahi==>")
+                        //recognition.stop();
+                        //return;
                     }
-                   //final_transcript = '';
+                    final_transcript = " " + final_transcript;
                     recognition.lang = select_dialect.value;
                     recognition.start();
                     ignore_onend = false;
