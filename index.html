@@ -55,7 +55,7 @@
 
             </div>
             <div class="center">
-                <button onclick="endSpeechRecognition()" style="background-color:red;color: white;font-size: 25px;">End Speech Detection</button>
+                <button onclick="endSpeechRecognition()" style="background-color:red;color: white;font-size: 25px;">Stop</button>
                 <!-- <button id="start_button" onclick="">
                     <img id="start_img" src="download-32.gif" alt="Start"></button> -->
                 <button style="margin-left: 30px;" id="start_button" onclick="startButton(event)">
@@ -180,6 +180,7 @@
 
                 var create_email = false;
                 var final_transcript = '';
+                var stop=false;
                 var recognizing = false;
                 var ignore_onend;
                 var start_timestamp;
@@ -236,21 +237,29 @@
                         console.log(document.getElementById("final_span").innerHTML)
                         //localStorage.setItem("previousText",document.getElementById("final_span").innerHTML);
                         // document.getElementById("result").innerHTML=
-
-
-                        recognition.start();
-
+                        if(stop==false)
+                        {
+                            recognition.start();
+                        }
+                        else
+                        {
+                            console.log("The User stopped the speech");
+                        }
 
                     };
                     //Here the speech will end
                     function endSpeechRecognition()
                     {
+                        stop=true;
+                        console.log("123")
                         recognizing = false;
+                        recognition.stop();
                         if (ignore_onend) {
                             return;
                         }
                         start_img.src = 'mic.gif';
                         if (!final_transcript) {
+                            
                             showInfo('info_start');
                             return;
                         }
@@ -278,9 +287,11 @@
                                 interim_transcript += event.results[i][0].transcript;
                             }
                         }
+                        final_transcript = final_transcript + new Array(1 + 1).join(' ')
+                        console.log("This is: ",final_transcript)
                         final_transcript = capitalize(final_transcript);
                         final_span.innerHTML = linebreak(final_transcript);
-                        // interim_span.innerHTML = linebreak(interim_transcript);
+                       // interim_span.innerHTML = linebreak(interim_transcript);
                         if (final_transcript || interim_transcript) {
                             showButtons('inline-block');
                         }
