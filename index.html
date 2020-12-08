@@ -190,7 +190,7 @@
                         ['cmn-Hans-HK', 'æ™®é€šè¯ (é¦™æ¸¯)'],
                         ['cmn-Hant-TW', 'ä¸­æ–‡ (å°ç£)'],
                         ['yue-Hant-HK', 'ç²µèªž (é¦™æ¸¯)']
-                    ],
+                    ], 
                     ['æ—¥æœ¬èªž', ['ja-JP']],
                     ['Lingua latÄ«na', ['la']]
                 ];
@@ -229,6 +229,7 @@
                     recognition.interimResults = true;
 
                     recognition.onstart = function () {
+                        stop=false;
 
                         console.log(document.getElementById("final_span"));
                         recognizing = true;
@@ -409,9 +410,10 @@
                 function startButton(event) {
                     
                     if (recognizing) {
+                        stop =false;
                         //console.log("sahi==>")
                         //recognition.stop();
-                        //return;
+                        return;
                     }
                     final_transcript = " " + final_transcript;
                     recognition.lang = select_dialect.value;
