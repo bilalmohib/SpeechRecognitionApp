@@ -1,5 +1,6 @@
 * {
     font-family: Verdana, Arial, sans-serif;
+    
 }
 
 a:link {
@@ -152,3 +153,66 @@ body {
     border: 1px solid #ccc;
     border-top: none;
 }
+
+/*This is the mic when the speech will be there*/
+
+
+#speech.btn {
+	border: none;
+  padding: 0;
+  border-radius: 100%;
+  width: 100px;
+  height: 100px;
+  font-size: 3.5em;
+  color: #fff;
+  padding: 0;
+  margin: 0;
+  background: lightgreen;
+	position: relative;
+  display: inline-block;
+    line-height: 50px;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+}
+
+.pulse-ring {
+  content: '';
+  width: 100px;
+  height: 100px;
+  border: 5px solid skyblue;
+  border-radius: 50%;
+  position: absolute;
+  top: -5px;
+  left: -5px;
+	background-color:green;
+  animation: pulsate infinite 2s;
+}
+
+@-webkit-keyframes pulsate {
+  0% {
+    -webkit-transform: scale(1, 1);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scale(1.2, 1.2);
+    opacity: 0;
+  }
+}
+
+.container {
+	display: none;
+  align-items: center;
+  justify-content: center;
+	height: 120px;
+	background-color: white;
+}
+/* This is the mic when the speech will be there */

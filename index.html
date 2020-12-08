@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta name="viewport" content="width=device-width, initial-scale = 1">
     <!-- <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css"> -->
@@ -9,7 +8,37 @@
     <!-- <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script> -->
     <script src="index.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.87/pdf.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="html2pdf.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+
+    <style>
+        #start_button
+        {
+            display: inline-block;
+            background-color: rgb(23, 95, 230);
+            border-radius: 5px 5px 5px 5px;
+            color: rgb(255, 255, 255);
+            font-size: 25px;
+            width: 80px;
+            height: 50px;
+        } 
+        #stop
+        {
+          display: none;
+          background-color: rgb(235, 30, 30);
+          border-radius: 5px 5px 5px 5px;
+          color: rgb(255, 255, 255);
+          font-size: 25px;
+          width: 80px;
+          font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        }
+        #erase{
+            font-size: 20px;
+        }
+    </style>
 
 </head>
 
@@ -18,8 +47,8 @@
 <body>
     <div data-role="page" id="pageone">
         <div data-role="header">
-            <div align="left">
-                <h1>Web Speech</h1>
+            <div align="center">
+                <h1 class="bg-info text-dark">Web Speech</h1>
             </div>
         </div>
         <div class="tab">
@@ -48,18 +77,29 @@
                 <p id="final_span" class="final"></p>
                 <span id="interim_span" class="interim"></span>
                 <p>
-                    <!-- <textarea id="final_span interim_span" rows="20" class="final interim">
+                <!-- <textarea id="final_span interim_span" rows="20" class="final interim">
                 </textarea> -->
             </div>
             <div id="result2">
 
             </div>
             <div class="center">
-                <button onclick="endSpeechRecognition()" style="background-color:red;color: white;font-size: 25px;">Stop</button>
+                <button type="button" class="btn btn-info" onclick="endSpeechRecognition()" id="stop">Stop</button>
+
                 <!-- <button id="start_button" onclick="">
                     <img id="start_img" src="download-32.gif" alt="Start"></button> -->
-                <button style="margin-left: 30px;"  id="start_button" onclick="startButton(event)">
-                    <img id="start_img" src="mic.gif" width="70" height="70" alt="Speech recognizing"></button>
+                    <!-- <img id="start_img" src="mic.gif" width="70" height="70" style="margin-top: 0px;" alt="Start"> -->
+                <button type="button" class="btn btn-info" id="start_button" onclick="startButton(event)">
+                    Start
+                </button>
+               <!-- This is the mic it will show when the some one will speak -->
+               <div id="animatedMic" class="container">
+                <button id="speech" class="btn">
+                    <i class="fa fa-microphone" aria-hidden="true"></i>
+                    <div class="pulse-ring"></div>
+                </div>
+                <!-- This is the mic it will show when the some one will speak -->
+                <button onclick="eraseData()" id="erase" class="btn btn-outline-warning">Discard</button>
                 <!-- <button id="start_button" onclick="copyButton()">
                     <img id="start_img" src="copy-32.gif" alt="Start"></button> -->
                 <!--   Copy and Paste</button> -->
@@ -70,16 +110,12 @@
                 <div class="sidebyside" style="text-align:right">
                     <button id="copy_button" class="button" onclick="">
                         Save txt</button>
-                    <!-- <div id="copy_info" class="info">
-                        Press Control-C to copy text.<br>(Command-C on Mac.)
-                    </div> -->
+                   
                 </div>
                 <div class="sidebyside">
                     <button id="email_button" class="button" onclick="generatePDF()">
                         Save PDF</button>
-                    <!-- <div id="download_info" class="info">
-                        Text sent to default email application.<br> (See chrome://settings/handlers to change.)
-                    </div> -->
+                  
                 </div>
                 <p>
                 <div id="div_language">
@@ -196,17 +232,18 @@
                         console.log(document.getElementById("final_span"));
                         recognizing = true;
                         showInfo('info_speak_now');
-                        start_img.src = 'mic-animate.gif';
+                        // start_img.src = 'mic-animate.gif';
+                        document.getElementById("start_button").style.display = "none";
                     };
 
                     function runWhenNoSpeech() {
-                        start_img.src = 'mic.gif';
+                        document.getElementById("start_button").style.display="inline-block";
                         showInfo('info_no_speech');
                         ignore_onend = true;
                         console.log("Koi Bola hi nahi")
                     }
                     function runWhenNoMic() {
-                        start_img.src = 'mic.gif';
+                        document.getElementById("start_button").style.display="inline-block";
                         showInfo('info_no_microphone');
                         ignore_onend = true;
                     }
@@ -249,6 +286,8 @@
                     //Here the speech will end
                     function endSpeechRecognition()
                     {
+                        document.getElementById("stop").style.display="none";
+                        document.getElementById("animatedMic").style.display="none";
                         stop=true;
                         console.log("123")
                         recognizing = false;
@@ -256,7 +295,7 @@
                         if (ignore_onend) {
                             return;
                         }
-                        start_img.src = 'mic.gif';
+                        document.getElementById("start_button").style.display="inline-block";
                         if (!final_transcript) {
                             
                             showInfo('info_start');
@@ -278,16 +317,13 @@
                         var interim_transcript = '';
                         for (var i = event.resultIndex; i < event.results.length; ++i) {
                             if (event.results[i].isFinal) {
-                                // final_transcript += event.results[i][0].transcript;
-                                // https://stackoverflow.com/questions/33526213/using-the-google-web-speech-api-on-mobile
-                                // + event.results[i][0].confidence - Sumran
                                 final_transcript += event.results[i][0].transcript
                             } else {
                                 interim_transcript += event.results[i][0].transcript;
                             }
                         }
                         final_transcript = final_transcript + new Array(1 + 1).join(' ')
-                        console.log("This is: ",final_transcript)
+                        // console.log("This is: ",final_transcript)
                         final_transcript = capitalize(final_transcript);
                         final_span.innerHTML = linebreak(final_transcript);
                        // interim_span.innerHTML = linebreak(interim_transcript);
@@ -302,7 +338,8 @@
                     //showInfo('info_upgrade');
                     startButton(event);
                     showInfo('info_speak_now');
-                    start_img.src = 'mic-animate.gif';
+                    document.getElementById("start_button").style.display="none";
+
                 }
 
                 var two_line = /\n\n/g;
@@ -331,7 +368,8 @@
                 }
 
                 function copyButton() {
-                    if (recognizing) {
+                    if (recognizing) 
+                    {
                         recognizing = false;
                         recognition.stop();
                     }
@@ -352,10 +390,15 @@
                     email_info.style.display = 'inline-block';
                     showInfo('');
                 }
+                 
+                function eraseData(){
+                    document.getElementById("final_span").innerHTML="";
+                } 
 
                 function startButton(event) {
+
                     if (recognizing) {
-                        console.log("sahi==>")
+                        //console.log("sahi==>")
                         //recognition.stop();
                         //return;
                     }
@@ -365,7 +408,9 @@
                     ignore_onend = false;
                     //final_span.innerHTML = '';
                     // interim_span.innerHTML = '';
-                    start_img.src = 'mic-slash.gif';
+                    document.getElementById("start_button").style.display="none";
+                    document.getElementById("stop").style.display="inline-block";
+                    document.getElementById("animatedMic").style.display="flex";
                     showInfo('info_allow');
                     showButtons('none');
                     start_timestamp = event.timeStamp;
@@ -416,7 +461,7 @@
                 document.getElementById("copy_button").addEventListener("click", function () {
                     // Generate download of hello.txt file with some content
                     var localdate = generateNameBasedTime();
-                    var filename = "STT_" + localdate + ".txt";
+                    var filename = "NewSpeech" + ".txt";
 
                     download(filename, text);
                 }, false);
@@ -425,7 +470,7 @@
                     const element = document.getElementById("final_span").innerHTML;
                     // Choose the element and save the PDF for our user.
                     var localdate = generateNameBasedTime();
-                    var filename01 = "STT_" + localdate + ".pdf";
+                    var filename01 = "NewPdf" + ".pdf";
                     var opt = {
                         margin: 1,
                         filename: filename01,
@@ -625,13 +670,19 @@
                 </script>
             </form>
         </div>
-        <div data-role="footer">
-            <h4>Copyleft Â© 2020.
-                <br><a href="http://dvcs.w3.org/hg/speech-api/raw-file/tip/speechapi.html">
+        <div style="border: 1px solid rgb(163, 159, 159);height: auto;max-width: 700px; margin: 0 auto; box-shadow: 2px 2px 2px 2px grey; margin-top: 10px;">
+               <img style="width: 100%;" src="back.png">
+        </div>
+        <div data-role="footer" style="background:linear-gradient(rgb(74, 74, 214),rgb(188, 194, 255)); position:fixed;color: black;width: 100%; bottom: 0%;">
+            <h5>&nbsp;&nbsp;Copyleft Â© 2020.
+                <br><a style="margin-left: 16px; color: blue;" href="http://dvcs.w3.org/hg/speech-api/raw-file/tip/speechapi.html">
                     Web Speech API</a>
-            </h4>
+            </h5>
         </div>
     </div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 
 </html>
