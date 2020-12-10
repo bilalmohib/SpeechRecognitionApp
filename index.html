@@ -10,6 +10,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.87/pdf.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="html2pdf.bundle.min.js"></script>
+    <script src="nosleep.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
@@ -684,6 +685,29 @@
                 </script>
             </form>
         </div>
+
+        <input type="button" id="toggle" value="Wake Lock is disabled" />
+
+    <script>
+      var noSleep = new NoSleep();
+
+      var wakeLockEnabled = false;
+      var toggleEl = document.querySelector("#toggle");
+      toggleEl.addEventListener('click', function() {
+        if (!wakeLockEnabled) {
+          noSleep.enable(); // keep the screen on!
+          wakeLockEnabled = true;
+          toggleEl.value = "Wake Lock is enabled";
+          document.body.style.backgroundColor = "green";
+        } else {
+          noSleep.disable(); // let the screen turn off.
+          wakeLockEnabled = false;
+          toggleEl.value = "Wake Lock is disabled";
+          document.body.style.backgroundColor = "";
+        }
+      }, false);
+    </script>
+
         <div style="border: 1px solid rgb(163, 159, 159);height: auto;max-width: 700px; margin: 0 auto; box-shadow: 2px 2px 2px 2px grey; margin-top: 10px;">
                <img style="width: 100%;" src="back.png">
         </div>
