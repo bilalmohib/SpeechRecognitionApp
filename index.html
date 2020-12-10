@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta name="viewport" content="width=device-width, initial-scale = 1">
     <!-- <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css"> -->
@@ -8,7 +9,8 @@
     <!-- <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script> -->
     <script src="index.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.87/pdf.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="html2pdf.bundle.min.js"></script>
     <script src="nosleep.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -16,8 +18,7 @@
 
 
     <style>
-        #start_button
-        {
+        #start_button {
             display: inline-block;
             background-color: rgb(23, 95, 230);
             border-radius: 5px 5px 5px 5px;
@@ -25,18 +26,19 @@
             font-size: 25px;
             width: 80px;
             height: 50px;
-        } 
-        #stop
-        {
-          display: none;
-          background-color: rgb(235, 30, 30);
-          border-radius: 5px 5px 5px 5px;
-          color: rgb(255, 255, 255);
-          font-size: 25px;
-          width: 80px;
-          font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
         }
-        #erase{
+
+        #stop {
+            display: none;
+            background-color: rgb(235, 30, 30);
+            border-radius: 5px 5px 5px 5px;
+            color: rgb(255, 255, 255);
+            font-size: 25px;
+            width: 80px;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        }
+
+        #erase {
             font-size: 20px;
             display: none;
         }
@@ -79,7 +81,7 @@
                 <p id="final_span" class="final"></p>
                 <span id="interim_span" class="interim"></span>
                 <p>
-                <!-- <textarea id="final_span interim_span" rows="20" class="final interim">
+                    <!-- <textarea id="final_span interim_span" rows="20" class="final interim">
                 </textarea> -->
             </div>
             <div id="result2">
@@ -90,15 +92,15 @@
 
                 <!-- <button id="start_button" onclick="">
                     <img id="start_img" src="download-32.gif" alt="Start"></button> -->
-                    <!-- <img id="start_img" src="mic.gif" width="70" height="70" style="margin-top: 0px;" alt="Start"> -->
+                <!-- <img id="start_img" src="mic.gif" width="70" height="70" style="margin-top: 0px;" alt="Start"> -->
                 <button type="button" class="btn btn-info" id="start_button" onclick="startButton(event)">
                     Start
                 </button>
-               <!-- This is the mic it will show when the some one will speak -->
-               <div id="animatedMic" class="container">
-                <button id="speech" class="btn">
-                    <i class="fa fa-microphone" aria-hidden="true"></i>
-                    <div class="pulse-ring"></div>
+                <!-- This is the mic it will show when the some one will speak -->
+                <div id="animatedMic" class="container">
+                    <button id="speech" class="btn">
+                        <i class="fa fa-microphone" aria-hidden="true"></i>
+                        <div class="pulse-ring"></div>
                 </div>
                 <!-- This is the mic it will show when the some one will speak -->
                 <button onclick="eraseData()" id="erase" class="btn btn-outline-warning">Discard</button>
@@ -112,12 +114,12 @@
                 <div class="sidebyside" style="text-align:right">
                     <button id="copy_button" class="button" onclick="">
                         Save txt</button>
-                   
+
                 </div>
                 <div class="sidebyside">
                     <button id="email_button" class="button" onclick="generatePDF()">
                         Save PDF</button>
-                  
+
                 </div>
                 <p>
                 <div id="div_language">
@@ -126,6 +128,27 @@
                 </div>
             </div>
             <script>
+                var noSleep = new NoSleep();
+
+                var wakeLockEnabled = false;
+                // var toggleEl = document.querySelector("#toggle");
+                // toggleEl.addEventListener('click', function () {
+                //     if (!wakeLockEnabled) {
+                //         noSleep.enable(); // keep the screen on!
+                //         wakeLockEnabled = true;
+                //         toggleEl.value = "Wake Lock is enabled";
+                //         // document.body.style.backgroundColor = "green";
+                //     } else {
+                //         noSleep.disable(); // let the screen turn off.
+                //         wakeLockEnabled = false;
+                //         toggleEl.value = "Wake Lock is disabled";
+                //         // document.body.style.backgroundColor = "";
+                //     }
+                // }, false);
+
+
+
+
                 var langs = [
                     ['Afrikaans', ['af-ZA']],
                     ['Bahasa Indonesia', ['id-ID']],
@@ -191,7 +214,7 @@
                         ['cmn-Hans-HK', 'æ™®é€šè¯ (é¦™æ¸¯)'],
                         ['cmn-Hant-TW', 'ä¸­æ–‡ (å°ç£)'],
                         ['yue-Hant-HK', 'ç²µèªž (é¦™æ¸¯)']
-                    ], 
+                    ],
                     ['æ—¥æœ¬èªž', ['ja-JP']],
                     ['Lingua latÄ«na', ['la']]
                 ];
@@ -217,7 +240,7 @@
 
                 var create_email = false;
                 var final_transcript = '';
-                var stop=false;
+                var stop = false;
                 var recognizing = false;
                 var ignore_onend;
                 var start_timestamp;
@@ -230,7 +253,7 @@
                     recognition.interimResults = true;
 
                     recognition.onstart = function () {
-                        stop=false;
+                        stop = false;
 
                         console.log(document.getElementById("final_span"));
                         recognizing = true;
@@ -240,19 +263,19 @@
                     };
 
                     function runWhenNoSpeech() {
-                        document.getElementById("start_button").style.display="inline-block";
+                        document.getElementById("start_button").style.display = "inline-block";
                         showInfo('info_no_speech');
-                        document.getElementById("stop").style.display="none";
-                        document.getElementById("animatedMic").style.display="none";
+                        document.getElementById("stop").style.display = "none";
+                        document.getElementById("animatedMic").style.display = "none";
 
                         ignore_onend = true;
                         console.log("Koi Bola hi nahi")
                     }
                     function runWhenNoMic() {
-                        document.getElementById("start_button").style.display="inline-block";
+                        document.getElementById("start_button").style.display = "inline-block";
                         showInfo('info_no_microphone');
-                        document.getElementById("stop").style.display="none";
-                        document.getElementById("animatedMic").style.display="none";
+                        document.getElementById("stop").style.display = "none";
+                        document.getElementById("animatedMic").style.display = "none";
                         ignore_onend = true;
                     }
 
@@ -281,33 +304,32 @@
                         console.log(document.getElementById("final_span").innerHTML)
                         //localStorage.setItem("previousText",document.getElementById("final_span").innerHTML);
                         // document.getElementById("result").innerHTML=
-                        if(stop==false)
-                        {
+                        if (stop == false) {
                             recognition.start();
                         }
-                        else
-                        {
+                        else {
                             console.log("The User stopped the speech");
                         }
 
                     };
                     //Here the speech will end
-                    function endSpeechRecognition()
-                    {
+                    function endSpeechRecognition() {
+                        noSleep.disable(); // let the screen turn off.
+                        wakeLockEnabled = false;
                         // final_transcript="";
                         // interimResults="";
-                        document.getElementById("stop").style.display="none";
-                        document.getElementById("animatedMic").style.display="none";
-                        stop=true;
+                        document.getElementById("stop").style.display = "none";
+                        document.getElementById("animatedMic").style.display = "none";
+                        stop = true;
                         //console.log("123")
                         recognizing = false;
                         recognition.stop();
                         if (ignore_onend) {
                             return;
                         }
-                        document.getElementById("start_button").style.display="inline-block";
+                        document.getElementById("start_button").style.display = "inline-block";
                         if (!final_transcript) {
-                            
+
                             showInfo('info_start');
                             return;
                         }
@@ -336,7 +358,7 @@
                         // console.log("This is: ",final_transcript)
                         final_transcript = capitalize(final_transcript);
                         final_span.innerHTML = linebreak(final_transcript);
-                       // interim_span.innerHTML = linebreak(interim_transcript);
+                        // interim_span.innerHTML = linebreak(interim_transcript);
                         if (final_transcript || interim_transcript) {
                             showButtons('inline-block');
                         }
@@ -348,7 +370,7 @@
                     //showInfo('info_upgrade');
                     startButton(event);
                     showInfo('info_speak_now');
-                    document.getElementById("start_button").style.display="none";
+                    document.getElementById("start_button").style.display = "none";
 
                 }
 
@@ -378,8 +400,7 @@
                 }
 
                 function copyButton() {
-                    if (recognizing) 
-                    {
+                    if (recognizing) {
                         recognizing = false;
                         recognition.stop();
                     }
@@ -400,18 +421,20 @@
                     email_info.style.display = 'inline-block';
                     showInfo('');
                 }
-                 
-                function eraseData(){
-                    document.getElementById("final_span").innerHTML="";
-                    final_transcript="";
-                    interimResults="";
+
+                function eraseData() {
+                    document.getElementById("final_span").innerHTML = "";
+                    final_transcript = "";
+                    interimResults = "";
                     endSpeechRecognition();
-                } 
+                }
 
                 function startButton(event) {
-                    
+
                     if (recognizing) {
-                        stop =false;
+                        stop = false;
+                        noSleep.enable(); // keep the screen on!
+                        wakeLockEnabled = true;
                         //console.log("sahi==>")
                         //recognition.stop();
                         return;
@@ -422,10 +445,10 @@
                     ignore_onend = false;
                     //final_span.innerHTML = '';
                     // interim_span.innerHTML = '';
-                    document.getElementById("start_button").style.display="none";
-                    document.getElementById("stop").style.display="inline-block";
-                    document.getElementById("animatedMic").style.display="flex";
-                    document.getElementById("erase").style.display="inline-block";
+                    document.getElementById("start_button").style.display = "none";
+                    document.getElementById("stop").style.display = "inline-block";
+                    document.getElementById("animatedMic").style.display = "flex";
+                    document.getElementById("erase").style.display = "inline-block";
                     showInfo('info_allow');
                     showButtons('none');
                     start_timestamp = event.timeStamp;
@@ -686,41 +709,50 @@
             </form>
         </div>
 
-        <input type="button" id="toggle" value="Wake Lock is disabled" />
+        <!-- <input type="button" id="toggle" value="Wake Lock is disabled" /> -->
 
-    <script>
-      var noSleep = new NoSleep();
+        <!-- <script>
+            var noSleep = new NoSleep();
 
-      var wakeLockEnabled = false;
-      var toggleEl = document.querySelector("#toggle");
-      toggleEl.addEventListener('click', function() {
-        if (!wakeLockEnabled) {
-          noSleep.enable(); // keep the screen on!
-          wakeLockEnabled = true;
-          toggleEl.value = "Wake Lock is enabled";
-          document.body.style.backgroundColor = "green";
-        } else {
-          noSleep.disable(); // let the screen turn off.
-          wakeLockEnabled = false;
-          toggleEl.value = "Wake Lock is disabled";
-          document.body.style.backgroundColor = "";
-        }
-      }, false);
-    </script>
+            var wakeLockEnabled = false;
+            var toggleEl = document.querySelector("#toggle");
+            toggleEl.addEventListener('click', function () {
+                if (!wakeLockEnabled) {
+                    noSleep.enable(); // keep the screen on!
+                    wakeLockEnabled = true;
+                    toggleEl.value = "Wake Lock is enabled";
+                    document.body.style.backgroundColor = "green";
+                } else {
+                    noSleep.disable(); // let the screen turn off.
+                    wakeLockEnabled = false;
+                    toggleEl.value = "Wake Lock is disabled";
+                    document.body.style.backgroundColor = "";
+                }
+            }, false);
+        </script> -->
 
-        <div style="border: 1px solid rgb(163, 159, 159);height: auto;max-width: 700px; margin: 0 auto; box-shadow: 2px 2px 2px 2px grey; margin-top: 10px;">
-               <img style="width: 100%;" src="back.png">
+        <div
+            style="border: 1px solid rgb(163, 159, 159);height: auto;max-width: 700px; margin: 0 auto; box-shadow: 2px 2px 2px 2px grey; margin-top: 10px;">
+            <img style="width: 100%;" src="back.png">
         </div>
-        <div data-role="footer" style="background:linear-gradient(rgb(74, 74, 214),rgb(188, 194, 255)); position:fixed;color: black;width: 100%; bottom: 0%;">
+        <div data-role="footer"
+            style="background:linear-gradient(rgb(74, 74, 214),rgb(188, 194, 255)); position:fixed;color: black;width: 100%; bottom: 0%;">
             <h5>&nbsp;&nbsp;Copyleft Â© 2020.
-                <br><a style="margin-left: 16px; color: blue;" href="http://dvcs.w3.org/hg/speech-api/raw-file/tip/speechapi.html">
+                <br><a style="margin-left: 16px; color: blue;"
+                    href="http://dvcs.w3.org/hg/speech-api/raw-file/tip/speechapi.html">
                     Web Speech API</a>
             </h5>
         </div>
     </div>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>
