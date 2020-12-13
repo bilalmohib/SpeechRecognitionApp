@@ -8,6 +8,7 @@
     <!-- <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script> -->
     <!-- <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script> -->
     <script src="index.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.87/pdf.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -65,11 +66,13 @@
                 <p id="info_speak_now">Speak now.</p>
                 <p id="info_no_speech">No speech was detected. You may need to adjust your
                     <a href="//support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892">
-                        microphone settings</a>.</p>
+                        microphone settings</a>.
+                </p>
                 <p id="info_no_microphone" style="display:none">
                     No microphone was found. Ensure that a microphone is installed and that
                     <a href="//support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892">
-                        microphone settings</a> are configured correctly.</p>
+                        microphone settings</a> are configured correctly.
+                </p>
                 <p id="info_allow">Click the "Allow" button above to enable your microphone.</p>
                 <p id="info_denied">Permission to use microphone was denied.</p>
                 <p id="info_blocked">Permission to use microphone is blocked. To change, go to
@@ -77,11 +80,45 @@
                 <p id="info_upgrade">Web Speech API is not supported by this browser. Upgrade to <a
                         href="//www.google.com/chrome">Chrome</a> version 25 or later.</p>
             </div>
+            <div id="StyleButtons">
+                <button class="btn btn-outline-dark" onclick="bold()">B</button>
+                <button class="btn btn-outline-primary" onclick="italic()">I</button>
+                <button class="btn btn-outline-warning" onclick="underline()">U</button>
+            </div>
+            <script>
+                let bold = () => {
+                    // let text = document.getElementById("final_span");
+                    // console.log("span==>", text.innerHTML);
+                    // text.setAttribute("class", "boldIt")
+
+
+                    
+                        $("#final_span").toggleClass("boldIt");
+                        
+
+                }
+                let italic = () => {
+                    // let text = document.getElementById("final_span");
+                    // console.log("span==>", text.innerHTML);
+                    // text.setAttribute("class", "italicIt")
+
+                    $("#final_span").toggleClass("italicIt");
+
+                }
+                let underline = () => {
+                    // let text = document.getElementById("final_span");
+                    // console.log("span==>", text.innerHTML);
+                    // text.setAttribute("class", "underlineIt")
+
+                    $("#final_span").toggleClass("underlineIt");
+                    
+                }
+            </script>
             <div id="results">
                 <textarea rows="6" id="final_span" class="final"></textarea>
                 <p id="interim_span" class="interim"></p>
-                
-                     <!-- <textarea id="final_span" style="font-size: 20px; border: 1px solid grey; border-radius: 5px 5px 5px 5px;" rows="5" class="final interim">
+
+                <!-- <textarea id="final_span" style="font-size: 20px; border: 1px solid grey; border-radius: 5px 5px 5px 5px;" rows="5" class="final interim">
                      </textarea> -->
             </div>
             <div id="result2">
@@ -260,11 +297,11 @@
 
                     recognition.onstart = function () {
                         stop = false;
-                        final_transcript = final_transcript + new Array(1+1).join(" ")
+                        final_transcript = final_transcript + new Array(1 + 1).join(" ")
                         console.log(document.getElementById("final_span"));
                         recognizing = true;
                         showInfo('info_speak_now');
-                        
+
                         document.getElementById("start_button").style.display = "none";
                     };
 
@@ -363,13 +400,13 @@
                             }
                         }
                         //final_span = final_span + new Array(1).join(" ");
-         //               interim_transcript = interim_transcript + new Array(1+1).join(` `);                        
+                        //               interim_transcript = interim_transcript + new Array(1+1).join(` `);                        
                         //  final_transcript = final_transcript + new Array(1+1).join(" ")
                         // console.log("This is: ",final_transcript)
-                        
+
                         final_transcript = capitalize(final_transcript);
                         final_span.innerHTML = linebreak(final_transcript);
-                         interim_span.innerHTML = linebreak(interim_transcript);
+                        interim_span.innerHTML = linebreak(interim_transcript);
                         if (final_transcript || interim_transcript) {
                             showButtons('inline-block');
                         }

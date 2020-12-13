@@ -216,3 +216,22 @@ body {
 	background-color: white;
 }
 /* This is the mic when the speech will be there */
+#StyleButtons
+{
+    /* border: 1px solid black; */
+    width: fit-content;
+    box-shadow: 2px 2px 2px 2px grey;
+    margin-bottom: 10px;
+}
+.boldIt
+{
+    font-weight: 900;
+}
+.italicIt
+{
+    font-style: italic;
+}
+.underlineIt
+{
+    text-decoration: underline;
+}
