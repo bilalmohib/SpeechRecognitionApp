@@ -78,11 +78,11 @@
                         href="//www.google.com/chrome">Chrome</a> version 25 or later.</p>
             </div>
             <div id="results">
-                <p id="final_span" class="final"></p>
-                <span id="interim_span" class="interim"></span>
-                <p>
-                    <!-- <textarea id="final_span interim_span" rows="20" class="final interim">
-                </textarea> -->
+                <textarea rows="6" id="final_span" class="final"></textarea>
+                <p id="interim_span" class="interim"></p>
+                
+                     <!-- <textarea id="final_span" style="font-size: 20px; border: 1px solid grey; border-radius: 5px 5px 5px 5px;" rows="5" class="final interim">
+                     </textarea> -->
             </div>
             <div id="result2">
 
@@ -146,6 +146,12 @@
                     }
                 }, false);
 
+
+                // window.onbeforeunload = confirmExit;
+                // function confirmExit()
+                // {
+                //       return "You have attempted to leave this page.  If you have made any changes to the fields without clicking the Save button, your changes will be lost.  Are you sure you want to exit this page?";
+                // }
 
 
 
@@ -254,11 +260,11 @@
 
                     recognition.onstart = function () {
                         stop = false;
-
+                        final_transcript = final_transcript + new Array(1+1).join(" ")
                         console.log(document.getElementById("final_span"));
                         recognizing = true;
                         showInfo('info_speak_now');
-                        // start_img.src = 'mic-animate.gif';
+                        
                         document.getElementById("start_button").style.display = "none";
                     };
 
@@ -314,6 +320,8 @@
                     };
                     //Here the speech will end
                     function endSpeechRecognition() {
+                        showInfo('info_start');
+                        //showInfo('');
                         noSleep.disable(); // let the screen turn off.
                         wakeLockEnabled = false;
                         // final_transcript="";
@@ -354,11 +362,14 @@
                                 interim_transcript += event.results[i][0].transcript;
                             }
                         }
-                        final_transcript = final_transcript + new Array(1 + 1).join(' ')
+                        //final_span = final_span + new Array(1).join(" ");
+         //               interim_transcript = interim_transcript + new Array(1+1).join(` `);                        
+                        //  final_transcript = final_transcript + new Array(1+1).join(" ")
                         // console.log("This is: ",final_transcript)
+                        
                         final_transcript = capitalize(final_transcript);
                         final_span.innerHTML = linebreak(final_transcript);
-                        // interim_span.innerHTML = linebreak(interim_transcript);
+                         interim_span.innerHTML = linebreak(interim_transcript);
                         if (final_transcript || interim_transcript) {
                             showButtons('inline-block');
                         }
@@ -439,7 +450,7 @@
                         //recognition.stop();
                         return;
                     }
-                    final_transcript = " " + final_transcript;
+                    // final_transcript = " " + final_transcript;
                     recognition.lang = select_dialect.value;
                     recognition.start();
                     ignore_onend = false;
@@ -507,9 +518,9 @@
                 function generatePDF() {
                     const element = document.getElementById("final_span").innerHTML;
                     // Choose the element and save the PDF for our user.
-                    var localdate = generateNameBasedTime();
-                    var filename01 = "NewPdf" + ".pdf";
-                    var opt = {
+                    let localdate = generateNameBasedTime();
+                    let filename01 = "NewPdf" + ".pdf";
+                    let opt = {
                         margin: 1,
                         filename: filename01,
                         jsPDF: {
