@@ -47,8 +47,6 @@
 
 </head>
 
-
-
 <body>
     <div data-role="page" id="pageone">
         <div data-role="header">
@@ -80,21 +78,42 @@
                 <p id="info_upgrade">Web Speech API is not supported by this browser. Upgrade to <a
                         href="//www.google.com/chrome">Chrome</a> version 25 or later.</p>
             </div>
+
+
             <div id="StyleButtons">
-                <button class="btn btn-outline-dark" onclick="bold()">B</button>
-                <button class="btn btn-outline-primary" onclick="italic()">I</button>
-                <button class="btn btn-outline-warning" onclick="underline()">U</button>
+
+                <div id="controls">
+                    <button style="margin-left: 2%;" class="btn btn-outline-dark" onclick="bold()">B</button>
+                    <button class="btn btn-outline-primary" onclick="italic()">I</button>
+                    <button class="btn btn-outline-warning" onclick="underline()">U</button>
+                    <button style="margin-left: 10%;" class="btn btn-primary" onclick="tab()">TAB</button>
+                    <div style="margin-left: 20px;" class="form-group">
+                        <select class="form-control" id="exampleFormControlSelect1">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                    </div>
+
+                </div>
+
             </div>
+
+
             <script>
+                var spaceNum;
+                var space = false;
                 let bold = () => {
                     // let text = document.getElementById("final_span");
                     // console.log("span==>", text.innerHTML);
                     // text.setAttribute("class", "boldIt")
 
 
-                    
-                        $("#final_span").toggleClass("boldIt");
-                        
+
+                    $("#final_span").toggleClass("boldIt");
+
 
                 }
                 let italic = () => {
@@ -111,7 +130,17 @@
                     // text.setAttribute("class", "underlineIt")
 
                     $("#final_span").toggleClass("underlineIt");
-                    
+
+                }
+                let tab = () => {
+                    // let text = document.getElementById("final_span");
+                    // console.log("span==>", text.innerHTML);
+                    // text.setAttribute("class", "underlineIt")
+                    console.log("In the tab tag");
+                    //spaceNum=3;
+                    space = true;
+                    //$("#final_span").toggleClass("tabit");
+
                 }
             </script>
             <div id="results">
@@ -297,7 +326,14 @@
 
                     recognition.onstart = function () {
                         stop = false;
-                        final_transcript = final_transcript + new Array(1 + 1).join(" ")
+                        if (space == true) {
+                            spaceNum = 8;
+                        }
+                        else {
+                            spaceNum = 1;
+                        }
+                        //Creating the space between the content
+                        final_transcript = final_transcript + new Array(spaceNum + 1).join(" ")
                         console.log(document.getElementById("final_span"));
                         recognizing = true;
                         showInfo('info_speak_now');

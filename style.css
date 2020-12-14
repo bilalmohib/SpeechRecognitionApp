@@ -219,9 +219,13 @@ body {
 #StyleButtons
 {
     /* border: 1px solid black; */
-    width: fit-content;
+    width: 500px;
     box-shadow: 2px 2px 2px 2px grey;
     margin-bottom: 10px;
+    border-radius: 5px 5px 5px 5px;
+    height: 70px;
+    line-height: 70px;
+    
 }
 .boldIt
 {
@@ -234,4 +238,15 @@ body {
 .underlineIt
 {
     text-decoration: underline;
+}
+#controls
+{
+    display: flex;
+    height: 40px;
+    position: relative;
+    top: 20%;
+}
+.tabit
+{
+    margin-left: 30px;
 }
