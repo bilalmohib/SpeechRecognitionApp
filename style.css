@@ -1,6 +1,5 @@
 * {
     font-family: Verdana, Arial, sans-serif;
-    
 }
 
 a:link {
@@ -107,7 +106,6 @@ body {
     font-family: Arial;
 }
 
-
 /* Style the tab */
 
 .tab {
@@ -115,7 +113,6 @@ body {
     border: 1px solid #ccc;
     background-color: #f1f1f1;
 }
-
 
 /* Style the buttons inside the tab */
 
@@ -130,20 +127,17 @@ body {
     font-size: 17px;
 }
 
-
 /* Change background color of buttons on hover */
 
 .tab button:hover {
     background-color: #ddd;
 }
 
-
 /* Create an active/current tablink class */
 
 .tab button.active {
     background-color: #ccc;
 }
-
 
 /* Style the tab content */
 
@@ -156,20 +150,19 @@ body {
 
 /*This is the mic when the speech will be there*/
 
-
 #speech.btn {
-	border: none;
-  padding: 0;
-  border-radius: 100%;
-  width: 100px;
-  height: 100px;
-  font-size: 3.5em;
-  color: #fff;
-  padding: 0;
-  margin: 0;
-  background: lightgreen;
-	position: relative;
-  display: inline-block;
+    border: none;
+    padding: 0;
+    border-radius: 100%;
+    width: 100px;
+    height: 100px;
+    font-size: 3.5em;
+    color: #fff;
+    padding: 0;
+    margin: 0;
+    background: lightgreen;
+    position: relative;
+    display: inline-block;
     line-height: 50px;
     text-align: center;
     white-space: nowrap;
@@ -185,39 +178,40 @@ body {
 }
 
 .pulse-ring {
-  content: '';
-  width: 100px;
-  height: 100px;
-  border: 5px solid skyblue;
-  border-radius: 50%;
-  position: absolute;
-  top: -5px;
-  left: -5px;
-	background-color:green;
-  animation: pulsate infinite 2s;
+    content: '';
+    width: 100px;
+    height: 100px;
+    border: 5px solid skyblue;
+    border-radius: 50%;
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    background-color: green;
+    animation: pulsate infinite 2s;
 }
 
 @-webkit-keyframes pulsate {
-  0% {
-    -webkit-transform: scale(1, 1);
-    opacity: 1;
-  }
-  100% {
-    -webkit-transform: scale(1.2, 1.2);
-    opacity: 0;
-  }
+    0% {
+        -webkit-transform: scale(1, 1);
+        opacity: 1;
+    }
+    100% {
+        -webkit-transform: scale(1.2, 1.2);
+        opacity: 0;
+    }
 }
 
 .container {
-	display: none;
-  align-items: center;
-  justify-content: center;
-	height: 120px;
-	background-color: white;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    height: 120px;
+    background-color: white;
 }
+
 /* This is the mic when the speech will be there */
-#StyleButtons
-{
+
+#StyleButtons {
     /* border: 1px solid black; */
     width: 500px;
     box-shadow: 2px 2px 2px 2px grey;
@@ -225,88 +219,105 @@ body {
     border-radius: 5px 5px 5px 5px;
     height: 70px;
     line-height: 70px;
-    
 }
-.boldIt
-{
+
+.boldIt {
     font-weight: 900;
 }
-.italicIt
-{
+
+.italicIt {
     font-style: italic;
 }
-.underlineIt
-{
+
+.underlineIt {
     text-decoration: underline;
 }
-#controls
-{
+
+#controls {
     display: flex;
     height: 40px;
     position: relative;
     top: 20%;
 }
-.tabit
-{
+
+.tabit {
     margin-left: 30px;
 }
-#removetab
-{
+
+#removetab {
     display: none;
     margin-left: 10%;
 }
-#tabbtn
-{
+
+#tabbtn {
     margin-left: 10%;
 }
-#final_span
-{
+
+#final_span {
     height: 200px;
     font-weight: lighter;
     border: none;
     overflow-y: scroll;
 }
 
-.form-control
-{
+.form-control {
     margin-left: 1%;
 }
-/* /////////////////////////////////////////////This is for the text editor/////////////////////// */
-.intLink { cursor: pointer;  }
-                img.intLink { border: 0; width: 30px;}
-                #toolBar1
-                {
-                    margin-top: 2%;
-                    margin-bottom: 2%;
-                }
-                #toolBar1 select { font-size:16px; margin-left: 1%; width: 150px;}
-                
-                #textBox #sourceText {
-                  padding: 0;
-                  margin: 0;
-                  min-width: 498px;
-                  min-height: 200px;
-                }
-                #editMode label { cursor: pointer; }
-                .heading{
-                    font-weight: bolder;
-
-                }
-                #toolBar1{
-                    display: flex;
-                }
 
 /* /////////////////////////////////////////////This is for the text editor/////////////////////// */
-#putbreak{
+
+.intLink {
+    cursor: pointer;
+}
+
+img.intLink {
+    border: 0;
+    width: 30px;
+}
+
+#toolBar1 {
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+#toolBar1 select {
+    font-size: 16px;
+    margin-left: 1%;
+    width: 150px;
+}
+
+#textBox #sourceText {
+    padding: 0;
+    margin: 0;
+    min-width: 498px;
+    min-height: 200px;
+}
+
+#editMode label {
+    cursor: pointer;
+}
+
+.heading {
+    font-weight: bolder;
+}
+
+#toolBar1 {
+    display: flex;
+}
+
+/* /////////////////////////////////////////////This is for the text editor/////////////////////// */
+
+#putbreak {
     display: none;
 }
-#toolBar0{
-    display: none;    
+
+#toolBar0 {
+    display: none;
 }
 
 /* For making responsive */
-@media all and (max-width:1000px) 
-{
+
+@media all and (max-width:1000px) {
     /* #toolBar1{
         display: inline;
     }
@@ -314,29 +325,63 @@ body {
         
         margin-left: 500px;
     } */
-    #toolBar1 select { font-size:12px; margin-left: 1%; max-width: 25%}
+    #toolBar1 select {
+        font-size: 12px;
+        margin-left: 1%;
+        max-width: 25%;
+    }
+   
 }
-#TextToSpeech{
+
+#TextToSpeech {
     display: none;
 }
-@media all and (max-width:700px) 
-{
-    #putbreak{
+
+@media all and (max-width:700px) {
+    #putbreak {
         display: block;
     }
-    /* #toolBar1{
-        display: inline;
+    #toolBar1 {
+        display: none;
     }
-    .make-margin{
-        
-        margin-left: 500px;
-    } */
-    #toolBar1{
-       display: none;
+    #toolBar0 {
+        display: flex;
     }
-    #toolBar0{
-display: flex;
-/* flex-direction: column; */
-    }
+
 }
+
 /* For making responsive */
+
+.formatIcons {
+    font-size: 20px;
+    color: rgb(58, 58, 110);
+    margin-left: 4%;
+    margin-right: 2%;
+}
+
+#alleditbuttons {
+    display: block;
+    margin-left: 2%;
+    width: fit-content;
+    height: auto;
+    margin-bottom: 50px;
+    margin-top: 10px;
+}
+
+#actionsButtons {
+    margin-top: 10px;
+    height: 50px;
+    margin-left: 0px;
+    line-height: 50px;
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: 2px 2px 2px 2px rgb(113, 99, 189);
+}
+
+#formattingButtons {
+    width: 290px;
+    height: 50px;
+    line-height: 50px;
+    
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: 2px 2px 2px 2px grey;
+}

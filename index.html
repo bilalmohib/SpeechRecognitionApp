@@ -8,6 +8,8 @@
     <!-- <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script> -->
     <!-- <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script> -->
     <script src="index.js"></script>
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.87/pdf.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -54,149 +56,145 @@
                 <h1 class="bg-info text-dark">Web Speech</h1>
             </div>
         </div>
-        <div class="tab">
-            <button class="tablinks" onclick="showSpeechToText()">Speech To Text</button>
-            <button class="tablinks" onclick="showTextToSpeech()">Text To Speech</button>
+        <div>
+            <button class="btn btn-lg btn-outline-primary" onclick="showSpeechToText()">Speech To Text</button>
+            <button class="btn btn-lg btn-outline-dark" onclick="showTextToSpeech()">Text To Speech</button>
         </div>
         <!-- <body onload="initDoc();"> -->
-            <form id="SpeechToText" name="compForm" method="post" action="sample.php"
-
-                onsubmit="if(validateMode()){this.myDoc.value=oDoc.innerHTML;return true;}return false;">
-                <input type="hidden" name="myDoc">
-                <div id="toolBar1">
-                    <select style="margin-left: 0px;" class="make-margin form-control"
-                        onchange="formatDoc('formatblock',this[this.selectedIndex].value);this.selectedIndex=0;">
-                        <option class="heading" selected>Text Format</option>
-                        <option value="h1">Heading 1</option>
-                        <option value="h2">Heading 2</option>
-                        <option value="h3">Heading 3</option>
-                        <option value="h4">Heading 4</option>
-                        <option value="h5">Heading 5</option>
-                        <option value="h6">Sub-Heading</option>
-                        <option value="p">Paragraph</option>
-                        <option value="pre">Preformatted</option>
-                    </select>
-                    <select class="make-margin form-control" onchange="formatDoc('fontname',this[this.selectedIndex].value);this.selectedIndex=0;">
-                        <option class="heading" selected>Font</option>
-                        <option>Arial</option>
-                        <option>Arial Black</option>
-                        <option>Courier New</option>
-                        <option>Times New Roman</option>
-                    </select>
-                    <!-- <div id="putbreak"><br></div> -->
-                    <br>
-                    <select class="make-margin form-control"
-                        onchange="formatDoc('fontsize',this[this.selectedIndex].value);this.selectedIndex=0;">
-                        <option class="heading" selected>Size</option>
-                        <option value="1">Very small</option>
-                        <option value="2">A bit small</option>
-                        <option value="3">Normal</option>
-                        <option value="4">Medium-large</option>
-                        <option value="5">Big</option>
-                        <option value="6">Very big</option>
-                        <option value="7">Maximum</option>
-                    </select>
-                    <select class="make-margin form-control"
-                        onchange="formatDoc('forecolor',this[this.selectedIndex].value);this.selectedIndex=0;">
-                        <option class="heading" selected><b>Color</b></option>
-                        <option value="red">Red</option>
-                        <option value="green">Green</option>
-                        <option value="yellow">Yellow</option>
-                        <option value="orange">Orange</option>
-                        <option value="purple">Purple</option>
-                        <option value="blue">Blue</option>
-                        <option value="white">White</option>
-                        <option value="pink">Pink</option>
-                        <option value="black">Black</option>
-                    </select>
-                    <select class="make-margin form-control"
-                        onchange="formatDoc('backcolor',this[this.selectedIndex].value);this.selectedIndex=0;">
-                        <option class="heading" selected>Background Color</option>
-                        <option value="red">Red</option>
-                        <option value="green">Green</option>
-                        <option value="yellow">Yellow</option>
-                        <option value="orange">Orange</option>
-                        <option value="purple">Purple</option>
-                        <option value="blue">Blue</option>
-                        <option value="white">White</option>
-                        <option value="pink">Pink</option>
-                        <option value="black">Black</option>
-                    </select>
-                </div>
-
-
-                <div id="toolBar0">
-                    <select style="margin-left: 0px;" class="make-margin form-control"
-                        onchange="formatDoc('formatblock',this[this.selectedIndex].value);this.selectedIndex=0;">
-                        <option class="heading" selected>Text Format</option>
-                        <option value="h1">Heading 1</option>
-                        <option value="h2">Heading 2</option>
-                        <option value="h3">Heading 3</option>
-                        <option value="h4">Heading 4</option>
-                        <option value="h5">Heading 5</option>
-                        <option value="h6">Sub-Heading</option>
-                        <option value="p">Paragraph</option>
-                        <option value="pre">Preformatted</option>
-                    </select>
-                    <select class="make-margin form-control" onchange="formatDoc('fontname',this[this.selectedIndex].value);this.selectedIndex=0;">
-                        <option class="heading" selected>Font</option>
-                        <option>Arial</option>
-                        <option>Arial Black</option>
-                        <option>Courier New</option>
-                        <option>Times New Roman</option>
-                    </select>
-                    <!-- <div id="putbreak"><br></div> -->
-                    <br>
-                    <select class="make-margin form-control"
-                        onchange="formatDoc('fontsize',this[this.selectedIndex].value);this.selectedIndex=0;">
-                        <option class="heading" selected>Size</option>
-                        <option value="1">Very small</option>
-                        <option value="2">A bit small</option>
-                        <option value="3">Normal</option>
-                        <option value="4">Medium-large</option>
-                        <option value="5">Big</option>
-                        <option value="6">Very big</option>
-                        <option value="7">Maximum</option>
-                    </select>
-                    <select class="make-margin form-control"
-                        onchange="formatDoc('forecolor',this[this.selectedIndex].value);this.selectedIndex=0;">
-                        <option class="heading" selected><b>Color</b></option>
-                        <option value="red">Red</option>
-                        <option value="green">Green</option>
-                        <option value="yellow">Yellow</option>
-                        <option value="orange">Orange</option>
-                        <option value="purple">Purple</option>
-                        <option value="blue">Blue</option>
-                        <option value="white">White</option>
-                        <option value="pink">Pink</option>
-                        <option value="black">Black</option>
-                    </select>
-                    <select class="make-margin form-control"
-                        onchange="formatDoc('backcolor',this[this.selectedIndex].value);this.selectedIndex=0;">
-                        <option class="heading" selected>Background Color</option>
-                        <option value="red">Red</option>
-                        <option value="green">Green</option>
-                        <option value="yellow">Yellow</option>
-                        <option value="orange">Orange</option>
-                        <option value="purple">Purple</option>
-                        <option value="blue">Blue</option>
-                        <option value="white">White</option>
-                        <option value="pink">Pink</option>
-                        <option value="black">Black</option>
-                    </select>
-                </div>
+        <form id="SpeechToText" name="compForm" method="post" action="sample.php"
+            onsubmit="if(validateMode()){this.myDoc.value=oDoc.innerHTML;return true;}return false;">
+            <input type="hidden" name="myDoc">
+            <div id="toolBar1">
+                <select style="margin-left: 0px;" class="make-margin form-control"
+                    onchange="formatDoc('formatblock',this[this.selectedIndex].value);this.selectedIndex=0;">
+                    <option class="heading" selected>Text Format</option>
+                    <option value="h1">Heading 1</option>
+                    <option value="h2">Heading 2</option>
+                    <option value="h3">Heading 3</option>
+                    <option value="h4">Heading 4</option>
+                    <option value="h5">Heading 5</option>
+                    <option value="h6">Sub-Heading</option>
+                    <option value="p">Paragraph</option>
+                    <option value="pre">Preformatted</option>
+                </select>
+                <select class="make-margin form-control"
+                    onchange="formatDoc('fontname',this[this.selectedIndex].value);this.selectedIndex=0;">
+                    <option class="heading" selected>Font</option>
+                    <option>Arial</option>
+                    <option>Arial Black</option>
+                    <option>Courier New</option>
+                    <option>Times New Roman</option>
+                </select>
+                <!-- <div id="putbreak"><br></div> -->
+                <br>
+                <select class="make-margin form-control"
+                    onchange="formatDoc('fontsize',this[this.selectedIndex].value);this.selectedIndex=0;">
+                    <option class="heading" selected>Size</option>
+                    <option value="1">Very small</option>
+                    <option value="2">A bit small</option>
+                    <option value="3">Normal</option>
+                    <option value="4">Medium-large</option>
+                    <option value="5">Big</option>
+                    <option value="6">Very big</option>
+                    <option value="7">Maximum</option>
+                </select>
+                <select class="make-margin form-control"
+                    onchange="formatDoc('forecolor',this[this.selectedIndex].value);this.selectedIndex=0;">
+                    <option class="heading" selected><b>Color</b></option>
+                    <option value="red">Red</option>
+                    <option value="green">Green</option>
+                    <option value="yellow">Yellow</option>
+                    <option value="orange">Orange</option>
+                    <option value="purple">Purple</option>
+                    <option value="blue">Blue</option>
+                    <option value="white">White</option>
+                    <option value="pink">Pink</option>
+                    <option value="black">Black</option>
+                </select>
+                <select class="make-margin form-control"
+                    onchange="formatDoc('backcolor',this[this.selectedIndex].value);this.selectedIndex=0;">
+                    <option class="heading" selected>Background Color</option>
+                    <option value="red">Red</option>
+                    <option value="green">Green</option>
+                    <option value="yellow">Yellow</option>
+                    <option value="orange">Orange</option>
+                    <option value="purple">Purple</option>
+                    <option value="blue">Blue</option>
+                    <option value="white">White</option>
+                    <option value="pink">Pink</option>
+                    <option value="black">Black</option>
+                </select>
+            </div>
 
 
-                <div id="toolBar2">
-                
-                    <img class="intLink" title="Print" onclick="printDoc();"
-                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAAABGdBTUEAALGPC/xhBQAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9oEBxcZFmGboiwAAAAIdEVYdENvbW1lbnQA9syWvwAAAuFJREFUOMvtlUtsjFEUx//n3nn0YdpBh1abRpt4LFqtqkc3jRKkNEIsiIRIBBEhJJpKlIVo4m1RRMKKjQiRMJRUqUdKPT71qpIpiRKPaqdF55tv5vvusZjQTjOlseUkd3Xu/3dPzusC/22wtu2wRn+jG5So/OCDh8ycMJDflehMlkJkVK7KUYN+ufzA/RttH76zaVocDptRxzQtNi3mRWuPc+6cKtlXZ/sddP2uu9uXlmYXZ6Qm8v4Tz8lhF1H+zDQXt7S8oLMXtbF4e8QaFHjj3kbP2MzkktHpiTjp9VH6iHiA+whtAsX5brpwueMGdONdf/2A4M7ukDs1JW662+XkqTkeUoqjKtOjm2h53YFL15pSJ04Zc94wdtibr26fXlC2mzRvBccEbz2kiRFD414tKMlEZbVGT33+qCoHgha81SWYsew0r1uzfNylmtpx80pngQQ91LwVk2JGvGnfvZG6YcYRAT16GFtW5kKKfo1EQLtfh5Q2etT0BIWF+aitq4fDbk+ImYo1OxvGF03waFJQvBCkvDffRyEtxQiFFYgAZTHS0zwAGD7fG5TNnYNTp8/FzvGwJOfmgG7GOx0SAKKgQgDMgKBI0NJGMEImpGDk5+WACEwEd0ywblhGUZ4Hw5OdUekRBLT7DTgdEgxACsIznx8zpmWh7k4rkpJcuHDxCul6MDsmmBXDlWCH2+XozSgBnzsNCEE4euYV4pwCpsWYPW0UHDYBKSWu1NYjENDReqtKjwn2+zvtTc1vMSTB/mvev/WEYSlASsLimcOhOBJxw+N3aP/SjefNL5GePZmpu4kG7OPr1+tOfPyUu3BecWYKcwQcDFmwFKAUo90fhKDInBCAmvqnyMgqUEagQwCoHBDc1rjv9pIlD8IbVkz6qYViIBQGTJPx4k0XpIgEZoRN1Da0cij4VfR0ta3WvBXH/rjdCufv6R2zPgPH/e4pxSBCpeatqPrjNiso203/5s/zA171Mv8+w1LOAAAAAElFTkSuQmCC">
-                    <img class="intLink" title="Undo" onclick="formatDoc('undo');"
-                        src="data:image/gif;base64,R0lGODlhFgAWAOMKADljwliE33mOrpGjuYKl8aezxqPD+7/I19DV3NHa7P///////////////////////yH5BAEKAA8ALAAAAAAWABYAAARR8MlJq7046807TkaYeJJBnES4EeUJvIGapWYAC0CsocQ7SDlWJkAkCA6ToMYWIARGQF3mRQVIEjkkSVLIbSfEwhdRIH4fh/DZMICe3/C4nBQBADs=" />
-                    <img class="intLink" title="Redo" onclick="formatDoc('redo');"
-                        src="data:image/gif;base64,R0lGODlhFgAWAMIHAB1ChDljwl9vj1iE34Kl8aPD+7/I1////yH5BAEKAAcALAAAAAAWABYAAANKeLrc/jDKSesyphi7SiEgsVXZEATDICqBVJjpqWZt9NaEDNbQK1wCQsxlYnxMAImhyDoFAElJasRRvAZVRqqQXUy7Cgx4TC6bswkAOw==" />
-                    <img class="intLink" title="Remove formatting" onclick="formatDoc('removeFormat')"
-                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAAABGdBTUEAALGPC/xhBQAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAAd0SU1FB9oECQMCKPI8CIIAAAAIdEVYdENvbW1lbnQA9syWvwAAAuhJREFUOMtjYBgFxAB501ZWBvVaL2nHnlmk6mXCJbF69zU+Hz/9fB5O1lx+bg45qhl8/fYr5it3XrP/YWTUvvvk3VeqGXz70TvbJy8+Wv39+2/Hz19/mGwjZzuTYjALuoBv9jImaXHeyD3H7kU8fPj2ICML8z92dlbtMzdeiG3fco7J08foH1kurkm3E9iw54YvKwuTuom+LPt/BgbWf3//sf37/1/c02cCG1lB8f//f95DZx74MTMzshhoSm6szrQ/a6Ir/Z2RkfEjBxuLYFpDiDi6Af///2ckaHBp7+7wmavP5n76+P2ClrLIYl8H9W36auJCbCxM4szMTJac7Kza////R3H1w2cfWAgafPbqs5g7D95++/P1B4+ECK8tAwMDw/1H7159+/7r7ZcvPz4fOHbzEwMDwx8GBgaGnNatfHZx8zqrJ+4VJBh5CQEGOySEua/v3n7hXmqI8WUGBgYGL3vVG7fuPK3i5GD9/fja7ZsMDAzMG/Ze52mZeSj4yu1XEq/ff7W5dvfVAS1lsXc4Db7z8C3r8p7Qjf///2dnZGxlqJuyr3rPqQd/Hhyu7oSpYWScylDQsd3kzvnH738wMDzj5GBN1VIWW4c3KDon7VOvm7S3paB9u5qsU5/x5KUnlY+eexQbkLNsErK61+++VnAJcfkyMTIwffj0QwZbJDKjcETs1Y8evyd48toz8y/ffzv//vPP4veffxpX77z6l5JewHPu8MqTDAwMDLzyrjb/mZm0JcT5Lj+89+Ybm6zz95oMh7s4XbygN3Sluq4Mj5K8iKMgP4f0////fv77//8nLy+7MCcXmyYDAwODS9jM9tcvPypd35pne3ljdjvj26+H2dhYpuENikgfvQeXNmSl3tqepxXsqhXPyc666s+fv1fMdKR3TK72zpix8nTc7bdfhfkEeVbC9KhbK/9iYWHiErbu6MWbY/7//8/4//9/pgOnH6jGVazvFDRtq2VgiBIZrUTIBgCk+ivHvuEKwAAAAABJRU5ErkJggg==">
+            <div id="toolBar0">
+                <select style="margin-left: 0px;" class="make-margin form-control"
+                    onchange="formatDoc('formatblock',this[this.selectedIndex].value);this.selectedIndex=0;">
+                    <option class="heading" selected>Text Format</option>
+                    <option value="h1">Heading 1</option>
+                    <option value="h2">Heading 2</option>
+                    <option value="h3">Heading 3</option>
+                    <option value="h4">Heading 4</option>
+                    <option value="h5">Heading 5</option>
+                    <option value="h6">Sub-Heading</option>
+                    <option value="p">Paragraph</option>
+                    <option value="pre">Preformatted</option>
+                </select>
+                <select class="make-margin form-control"
+                    onchange="formatDoc('fontname',this[this.selectedIndex].value);this.selectedIndex=0;">
+                    <option class="heading" selected>Font</option>
+                    <option>Arial</option>
+                    <option>Arial Black</option>
+                    <option>Courier New</option>
+                    <option>Times New Roman</option>
+                </select>
+                <!-- <div id="putbreak"><br></div> -->
+                <br>
+                <select class="make-margin form-control"
+                    onchange="formatDoc('fontsize',this[this.selectedIndex].value);this.selectedIndex=0;">
+                    <option class="heading" selected>Size</option>
+                    <option value="1">Very small</option>
+                    <option value="2">A bit small</option>
+                    <option value="3">Normal</option>
+                    <option value="4">Medium-large</option>
+                    <option value="5">Big</option>
+                    <option value="6">Very big</option>
+                    <option value="7">Maximum</option>
+                </select>
+                <select class="make-margin form-control"
+                    onchange="formatDoc('forecolor',this[this.selectedIndex].value);this.selectedIndex=0;">
+                    <option class="heading" selected><b>Color</b></option>
+                    <option value="red">Red</option>
+                    <option value="green">Green</option>
+                    <option value="yellow">Yellow</option>
+                    <option value="orange">Orange</option>
+                    <option value="purple">Purple</option>
+                    <option value="blue">Blue</option>
+                    <option value="white">White</option>
+                    <option value="pink">Pink</option>
+                    <option value="black">Black</option>
+                </select>
+                <select class="make-margin form-control"
+                    onchange="formatDoc('backcolor',this[this.selectedIndex].value);this.selectedIndex=0;">
+                    <option class="heading" selected>Background Color</option>
+                    <option value="red">Red</option>
+                    <option value="green">Green</option>
+                    <option value="yellow">Yellow</option>
+                    <option value="orange">Orange</option>
+                    <option value="purple">Purple</option>
+                    <option value="blue">Blue</option>
+                    <option value="white">White</option>
+                    <option value="pink">Pink</option>
+                    <option value="black">Black</option>
+                </select>
+            </div>
+
+
+            <div id="toolBar2">
+
+
+                <div id="alleditbuttons">
+                <div id="formattingButtons">
                     <img class="intLink" title="Bold" onclick="formatDoc('bold');"
                         src="data:image/gif;base64,R0lGODlhFgAWAID/AMDAwAAAACH5BAEAAAAALAAAAAAWABYAQAInhI+pa+H9mJy0LhdgtrxzDG5WGFVk6aXqyk6Y9kXvKKNuLbb6zgMFADs=" />
                     <img class="intLink" title="Italic" onclick="formatDoc('italic');"
@@ -213,15 +211,25 @@
                         src="data:image/gif;base64,R0lGODlhFgAWAMIGAAAAADljwliE35GjuaezxtHa7P///////yH5BAEAAAcALAAAAAAWABYAAAM2eLrc/jDKSespwjoRFvggCBUBoTFBeq6QIAysQnRHaEOzyaZ07Lu9lUBnC0UGQU1K52s6n5oEADs=" />
                     <img class="intLink" title="Dotted list" onclick="formatDoc('insertunorderedlist');"
                         src="data:image/gif;base64,R0lGODlhFgAWAMIGAAAAAB1ChF9vj1iE33mOrqezxv///////yH5BAEAAAcALAAAAAAWABYAAAMyeLrc/jDKSesppNhGRlBAKIZRERBbqm6YtnbfMY7lud64UwiuKnigGQliQuWOyKQykgAAOw==" />
-                    <img class="intLink" title="Quote" onclick="formatDoc('formatblock','blockquote');"
-                        src="data:image/gif;base64,R0lGODlhFgAWAIQXAC1NqjFRjkBgmT9nqUJnsk9xrFJ7u2R9qmKBt1iGzHmOrm6Sz4OXw3Odz4Cl2ZSnw6KxyqO306K63bG70bTB0rDI3bvI4P///////////////////////////////////yH5BAEKAB8ALAAAAAAWABYAAAVP4CeOZGmeaKqubEs2CekkErvEI1zZuOgYFlakECEZFi0GgTGKEBATFmJAVXweVOoKEQgABB9IQDCmrLpjETrQQlhHjINrTq/b7/i8fp8PAQA7" />
-                    <img class="intLink" title="Delete indentation" onclick="formatDoc('outdent');"
-                        src="data:image/gif;base64,R0lGODlhFgAWAMIHAAAAADljwliE35GjuaezxtDV3NHa7P///yH5BAEAAAcALAAAAAAWABYAAAM2eLrc/jDKCQG9F2i7u8agQgyK1z2EIBil+TWqEMxhMczsYVJ3e4ahk+sFnAgtxSQDqWw6n5cEADs=" />
-                    <img class="intLink" title="Add indentation" onclick="formatDoc('indent');"
-                        src="data:image/gif;base64,R0lGODlhFgAWAOMIAAAAADljwl9vj1iE35GjuaezxtDV3NHa7P///////////////////////////////yH5BAEAAAgALAAAAAAWABYAAAQ7EMlJq704650B/x8gemMpgugwHJNZXodKsO5oqUOgo5KhBwWESyMQsCRDHu9VOyk5TM9zSpFSr9gsJwIAOw==" />
-                    <img class="intLink" title="Hyperlink"
-                        onclick="var sLnk=prompt('Write the URL here','http:\/\/');if(sLnk&&sLnk!=''&&sLnk!='http://'){formatDoc('createlink',sLnk)}"
-                        src="data:image/gif;base64,R0lGODlhFgAWAOMKAB1ChDRLY19vj3mOrpGjuaezxrCztb/I19Ha7Pv8/f///////////////////////yH5BAEKAA8ALAAAAAAWABYAAARY8MlJq7046827/2BYIQVhHg9pEgVGIklyDEUBy/RlE4FQF4dCj2AQXAiJQDCWQCAEBwIioEMQBgSAFhDAGghGi9XgHAhMNoSZgJkJei33UESv2+/4vD4TAQA7" />
+                    <!-- <img class="intLink" title="Quote" onclick="formatDoc('formatblock','blockquote');"
+                        src="data:image/gif;base64,R0lGODlhFgAWAIQXAC1NqjFRjkBgmT9nqUJnsk9xrFJ7u2R9qmKBt1iGzHmOrm6Sz4OXw3Odz4Cl2ZSnw6KxyqO306K63bG70bTB0rDI3bvI4P///////////////////////////////////yH5BAEKAB8ALAAAAAAWABYAAAVP4CeOZGmeaKqubEs2CekkErvEI1zZuOgYFlakECEZFi0GgTGKEBATFmJAVXweVOoKEQgABB9IQDCmrLpjETrQQlhHjINrTq/b7/i8fp8PAQA7" /> -->
+
+                </div>
+
+                <div id="actionsButtons">
+                    <img class="intLink" title="Print" onclick="printDoc();"
+                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAAABGdBTUEAALGPC/xhBQAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9oEBxcZFmGboiwAAAAIdEVYdENvbW1lbnQA9syWvwAAAuFJREFUOMvtlUtsjFEUx//n3nn0YdpBh1abRpt4LFqtqkc3jRKkNEIsiIRIBBEhJJpKlIVo4m1RRMKKjQiRMJRUqUdKPT71qpIpiRKPaqdF55tv5vvusZjQTjOlseUkd3Xu/3dPzusC/22wtu2wRn+jG5So/OCDh8ycMJDflehMlkJkVK7KUYN+ufzA/RttH76zaVocDptRxzQtNi3mRWuPc+6cKtlXZ/sddP2uu9uXlmYXZ6Qm8v4Tz8lhF1H+zDQXt7S8oLMXtbF4e8QaFHjj3kbP2MzkktHpiTjp9VH6iHiA+whtAsX5brpwueMGdONdf/2A4M7ukDs1JW662+XkqTkeUoqjKtOjm2h53YFL15pSJ04Zc94wdtibr26fXlC2mzRvBccEbz2kiRFD414tKMlEZbVGT33+qCoHgha81SWYsew0r1uzfNylmtpx80pngQQ91LwVk2JGvGnfvZG6YcYRAT16GFtW5kKKfo1EQLtfh5Q2etT0BIWF+aitq4fDbk+ImYo1OxvGF03waFJQvBCkvDffRyEtxQiFFYgAZTHS0zwAGD7fG5TNnYNTp8/FzvGwJOfmgG7GOx0SAKKgQgDMgKBI0NJGMEImpGDk5+WACEwEd0ywblhGUZ4Hw5OdUekRBLT7DTgdEgxACsIznx8zpmWh7k4rkpJcuHDxCul6MDsmmBXDlWCH2+XozSgBnzsNCEE4euYV4pwCpsWYPW0UHDYBKSWu1NYjENDReqtKjwn2+zvtTc1vMSTB/mvev/WEYSlASsLimcOhOBJxw+N3aP/SjefNL5GePZmpu4kG7OPr1+tOfPyUu3BecWYKcwQcDFmwFKAUo90fhKDInBCAmvqnyMgqUEagQwCoHBDc1rjv9pIlD8IbVkz6qYViIBQGTJPx4k0XpIgEZoRN1Da0cij4VfR0ta3WvBXH/rjdCufv6R2zPgPH/e4pxSBCpeatqPrjNiso203/5s/zA171Mv8+w1LOAAAAAElFTkSuQmCC">
+                    <span class="formatIcons" title="Undo" onclick="formatDoc('undo');">
+                        <i class="fa fa-undo" aria-hidden="true"></i>
+                    </span>
+
+                    <span class="formatIcons" title="Redo" onclick="formatDoc('redo');">
+                        <i class="fa fa-repeat" aria-hidden="true"></i>
+                    </span>
+
+
+                    <img class="intLink" title="Remove formatting" onclick="formatDoc('removeFormat')"
+                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAADEtGw7AAAABGdBTUEAALGPC/xhBQAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAAd0SU1FB9oECQMCKPI8CIIAAAAIdEVYdENvbW1lbnQA9syWvwAAAuhJREFUOMtjYBgFxAB501ZWBvVaL2nHnlmk6mXCJbF69zU+Hz/9fB5O1lx+bg45qhl8/fYr5it3XrP/YWTUvvvk3VeqGXz70TvbJy8+Wv39+2/Hz19/mGwjZzuTYjALuoBv9jImaXHeyD3H7kU8fPj2ICML8z92dlbtMzdeiG3fco7J08foH1kurkm3E9iw54YvKwuTuom+LPt/BgbWf3//sf37/1/c02cCG1lB8f//f95DZx74MTMzshhoSm6szrQ/a6Ir/Z2RkfEjBxuLYFpDiDi6Af///2ckaHBp7+7wmavP5n76+P2ClrLIYl8H9W36auJCbCxM4szMTJac7Kza////R3H1w2cfWAgafPbqs5g7D95++/P1B4+ECK8tAwMDw/1H7159+/7r7ZcvPz4fOHbzEwMDwx8GBgaGnNatfHZx8zqrJ+4VJBh5CQEGOySEua/v3n7hXmqI8WUGBgYGL3vVG7fuPK3i5GD9/fja7ZsMDAzMG/Ze52mZeSj4yu1XEq/ff7W5dvfVAS1lsXc4Db7z8C3r8p7Qjf///2dnZGxlqJuyr3rPqQd/Hhyu7oSpYWScylDQsd3kzvnH738wMDzj5GBN1VIWW4c3KDon7VOvm7S3paB9u5qsU5/x5KUnlY+eexQbkLNsErK61+++VnAJcfkyMTIwffj0QwZbJDKjcETs1Y8evyd48toz8y/ffzv//vPP4veffxpX77z6l5JewHPu8MqTDAwMDLzyrjb/mZm0JcT5Lj+89+Ybm6zz95oMh7s4XbygN3Sluq4Mj5K8iKMgP4f0////fv77//8nLy+7MCcXmyYDAwODS9jM9tcvPypd35pne3ljdjvj26+H2dhYpuENikgfvQeXNmSl3tqepxXsqhXPyc666s+fv1fMdKR3TK72zpix8nTc7bdfhfkEeVbC9KhbK/9iYWHiErbu6MWbY/7//8/4//9/pgOnH6jGVazvFDRtq2VgiBIZrUTIBgCk+ivHvuEKwAAAAABJRU5ErkJggg==">
                     <img class="intLink" title="Cut" onclick="formatDoc('cut');"
                         src="data:image/gif;base64,R0lGODlhFgAWAIQSAB1ChBFNsRJTySJYwjljwkxwl19vj1dusYODhl6MnHmOrpqbmpGjuaezxrCztcDCxL/I18rL1P///////////////////////////////////////////////////////yH5BAEAAB8ALAAAAAAWABYAAAVu4CeOZGmeaKqubDs6TNnEbGNApNG0kbGMi5trwcA9GArXh+FAfBAw5UexUDAQESkRsfhJPwaH4YsEGAAJGisRGAQY7UCC9ZAXBB+74LGCRxIEHwAHdWooDgGJcwpxDisQBQRjIgkDCVlfmZqbmiEAOw==" />
                     <img class="intLink" title="Copy" onclick="formatDoc('copy');"
@@ -230,73 +238,86 @@
                         src="data:image/gif;base64,R0lGODlhFgAWAIQUAD04KTRLY2tXQF9vj414WZWIbXmOrpqbmpGjudClFaezxsa0cb/I1+3YitHa7PrkIPHvbuPs+/fvrvv8/f///////////////////////////////////////////////yH5BAEAAB8ALAAAAAAWABYAAAWN4CeOZGmeaKqubGsusPvBSyFJjVDs6nJLB0khR4AkBCmfsCGBQAoCwjF5gwquVykSFbwZE+AwIBV0GhFog2EwIDchjwRiQo9E2Fx4XD5R+B0DDAEnBXBhBhN2DgwDAQFjJYVhCQYRfgoIDGiQJAWTCQMRiwwMfgicnVcAAAMOaK+bLAOrtLUyt7i5uiUhADs=" />
                 </div>
 
-
-                
-
-                <!-- <div id="textBox" contenteditable="true"><p>Lorem ipsum</p></div> -->
-                <p id="editMode"><input type="checkbox" name="switchMode" id="switchBox"
-                        onchange="setDocMode(this.checked);" /> <label for="switchBox">Show HTML</label></p>
-                <p style="display: none;"><input type="submit" value="Send" /></p>
+            </div>
 
 
+                <!-- <img class="intLink" title="Delete indentation" onclick="formatDoc('outdent');"
+                        src="data:image/gif;base64,R0lGODlhFgAWAMIHAAAAADljwliE35GjuaezxtDV3NHa7P///yH5BAEAAAcALAAAAAAWABYAAAM2eLrc/jDKCQG9F2i7u8agQgyK1z2EIBil+TWqEMxhMczsYVJ3e4ahk+sFnAgtxSQDqWw6n5cEADs=" /> -->
+                <!-- <img class="intLink" title="Add indentation" onclick="formatDoc('indent');"
+                        src="data:image/gif;base64,R0lGODlhFgAWAOMIAAAAADljwl9vj1iE35GjuaezxtDV3NHa7P///////////////////////////////yH5BAEAAAgALAAAAAAWABYAAAQ7EMlJq704650B/x8gemMpgugwHJNZXodKsO5oqUOgo5KhBwWESyMQsCRDHu9VOyk5TM9zSpFSr9gsJwIAOw==" /> -->
+                <!-- <img class="intLink" title="Hyperlink"
+                        onclick="var sLnk=prompt('Write the URL here','http:\/\/');if(sLnk&&sLnk!=''&&sLnk!='http://'){formatDoc('createlink',sLnk)}"
+                        src="data:image/gif;base64,R0lGODlhFgAWAOMKAB1ChDRLY19vj3mOrpGjuaezxrCztb/I19Ha7Pv8/f///////////////////////yH5BAEKAA8ALAAAAAAWABYAAARY8MlJq7046827/2BYIQVhHg9pEgVGIklyDEUBy/RlE4FQF4dCj2AQXAiJQDCWQCAEBwIioEMQBgSAFhDAGghGi9XgHAhMNoSZgJkJei33UESv2+/4vD4TAQA7" /> -->
+
+            </div>
 
 
-                <div id="results">
 
-                    <div id="final_span" contenteditable="true" class="final"></div>
-                    <p id="interim_span" class="interim"></p>
-    
-                    <!-- <textarea id="final_span" style="font-size: 20px; border: 1px solid grey; border-radius: 5px 5px 5px 5px;" rows="5" class="final interim">
+
+            <!-- <div id="textBox" contenteditable="true"><p>Lorem ipsum</p></div> -->
+            <!-- <p style="margin-left: 10px;" id="editMode"><input type="checkbox" name="switchMode" id="switchBox"
+                    onchange="setDocMode(this.checked);" /> <label for="switchBox">Show HTML</label></p>
+            <p style="display: none;"><input type="submit" value="Send" /></p> -->
+
+
+
+
+            <div id="results">
+
+                <div id="final_span" contenteditable="true" class="final"></div>
+                <p id="interim_span" class="interim"></p>
+
+                <!-- <textarea id="final_span" style="font-size: 20px; border: 1px solid grey; border-radius: 5px 5px 5px 5px;" rows="5" class="final interim">
                      </textarea> -->
-                </div>
-    
-                <p id="demo"></p>
-                <div id="result2">
-    
-                </div>
-    
-                <div class="center">
-                    <button type="button" class="btn btn-info" onclick="endSpeechRecognition()" id="stop">Stop</button>
-    
-                    <!-- <button id="start_button" onclick="">
+            </div>
+
+            <p id="demo"></p>
+            <div id="result2">
+
+            </div>
+
+            <div class="center">
+                <button type="button" class="btn btn-info" onclick="endSpeechRecognition()" id="stop">Stop</button>
+
+                <!-- <button id="start_button" onclick="">
                     <img id="start_img" src="download-32.gif" alt="Start"></button> -->
-                    <!-- <img id="start_img" src="mic.gif" width="70" height="70" style="margin-top: 0px;" alt="Start"> -->
-                    <button type="button" class="btn btn-info" id="start_button" onclick="startButton(event)">
-                        Start
-                    </button>
-                    <!-- This is the mic it will show when the some one will speak -->
-                    <div id="animatedMic" class="container">
-                        <button id="speech" class="btn">
-                            <i class="fa fa-microphone" aria-hidden="true"></i>
-                            <div class="pulse-ring"></div>
-                    </div>
-                    <!-- This is the mic it will show when the some one will speak -->
-                    <button onclick="eraseData()" id="erase" class="btn btn-outline-warning">Discard</button>
-                    <!-- <button id="start_button" onclick="copyButton()">
-                    <img id="start_img" src="copy-32.gif" alt="Start"></button> -->
-                    <!--   Copy and Paste</button> -->
-    
-    
+                <!-- <img id="start_img" src="mic.gif" width="70" height="70" style="margin-top: 0px;" alt="Start"> -->
+                <button type="button" class="btn btn-info" id="start_button" onclick="startButton(event)">
+                    Start
+                </button>
+                <!-- This is the mic it will show when the some one will speak -->
+                <div id="animatedMic" class="container">
+                    <button id="speech" class="btn">
+                        <i class="fa fa-microphone" aria-hidden="true"></i>
+                        <div class="pulse-ring"></div>
                 </div>
-                <div class="center">
-                    <div id="butttonImp">
+                <!-- This is the mic it will show when the some one will speak -->
+                <div onclick="eraseData()" id="erase" class="btn btn-outline-warning">Discard</div>
+                <!-- <button id="start_button" onclick="copyButton()">
+                    <img id="start_img" src="copy-32.gif" alt="Start"></button> -->
+                <!--   Copy and Paste</button> -->
+
+
+            </div>
+            <div class="center">
+                <div id="butttonImp">
                     <div class="sidebyside" style="text-align:right">
                         <button id="copy_button" class="button" onclick="">
                             Save txt</button>
-    
+
                     </div>
                     <div class="sidebyside">
                         <button id="email_button" class="button" onclick="generatePDF()">
                             Save PDF</button>
-    
+
                     </div>
                 </div>
-                    <p>
-                    <div id="div_language">
-                        <select id="select_language" onchange="updateCountry()"></select> &nbsp;&nbsp;
-                        <select id="select_dialect"></select>
-                    </div>
+                <p>
+                <div id="div_language">
+                    <select id="select_language" onchange="updateCountry()"></select> &nbsp;&nbsp;
+                    <select id="select_dialect"></select>
                 </div>
+            </div>
             <div id="speechtotext" class="tabcontent">
                 <div id="info">
                     <p id="info_start">Click on the microphone icon and begin speaking.</p>
@@ -320,199 +341,199 @@
 
 
 
-            </form>
+        </form>
 
 
-            
 
 
-           
 
-            
 
-                
-        </div>
 
-        <div id="TextToSpeech">
-            <script type="text/javascript">
-                // var u = new SpeechSynthesisUtterance();
+
+
+
+    </div>
+
+    <div id="TextToSpeech">
+        <script type="text/javascript">
+            // var u = new SpeechSynthesisUtterance();
+            // u.text = 'Hello World';
+            // u.lang = 'en-US';
+            // u.rate = 1.2;
+            // u.onend = function(event) {
+            //     alert('Finished in ' + event.elapsedTime + ' seconds.');
+            // }
+            // speechSynthesis.speak(u);
+
+            function playSpeech(event) {
+                var u = new window.SpeechSynthesisUtterance();
                 // u.text = 'Hello World';
-                // u.lang = 'en-US';
-                // u.rate = 1.2;
+                u.text = document.getElementById("myTextArea").value;
+                u.lang = 'en-US';
+                u.rate = document.getElementById("rate").value;
+                u.pitch = document.getElementById("pitch").value;
                 // u.onend = function(event) {
                 //     alert('Finished in ' + event.elapsedTime + ' seconds.');
                 // }
-                // speechSynthesis.speak(u);
+                event.preventDefault();
+                // console.log("Start speech");
+                window.speechSynthesis.cancel();
+                window.speechSynthesis.speak(u);
+                // alert('Finished in ' + event.elapsedTime + ' seconds.');
+                // console.log("Finisih speech");
+            }
 
-                function playSpeech(event) {
-                    var u = new window.SpeechSynthesisUtterance();
-                    // u.text = 'Hello World';
-                    u.text = document.getElementById("myTextArea").value;
-                    u.lang = 'en-US';
-                    u.rate = document.getElementById("rate").value;
-                    u.pitch = document.getElementById("pitch").value;
-                    // u.onend = function(event) {
-                    //     alert('Finished in ' + event.elapsedTime + ' seconds.');
-                    // }
-                    event.preventDefault();
-                    // console.log("Start speech");
-                    window.speechSynthesis.cancel();
-                    window.speechSynthesis.speak(u);
-                    // alert('Finished in ' + event.elapsedTime + ' seconds.');
-                    // console.log("Finisih speech");
-                }
+            function pauseSpeech(event) {
+                event.preventDefault();
+                window.speechSynthesis.pause();
+            }
 
-                function pauseSpeech(event) {
-                    event.preventDefault();
-                    window.speechSynthesis.pause();
-                }
+            function resumeSpeech(event) {
+                event.preventDefault();
+                window.speechSynthesis.resume();
+            }
 
-                function resumeSpeech(event) {
-                    event.preventDefault();
-                    window.speechSynthesis.resume();
-                }
-
-                function stopSpeech(event) {
-                    event.preventDefault();
-                    window.speechSynthesis.cancel();
-                }
-            </script>
-            <div id="info" style="visibility: visible;">
-                <p id="info_start" style="display: inline;">Input text in the below and press the "play" button to hear
-                    it</p>
-            </div>
-            <div id="results">
-                <!-- <span id="final_span" class="final"></span>
+            function stopSpeech(event) {
+                event.preventDefault();
+                window.speechSynthesis.cancel();
+            }
+        </script>
+        <div id="info" style="visibility: visible;">
+            <p id="info_start" style="display: inline;">Input text in the below and press the "play" button to hear
+                it</p>
+        </div>
+        <div id="results">
+            <!-- <span id="final_span" class="final"></span>
                 <span id="interim_span" class="interim"></span> -->
-                <textarea id="myTextArea" rows="20" class="interim">We use 100% recycled paper, prioritize digital version and work with green hosting services who work with wind power, for this purpose we are green certified.We donate 100% of the profits we make as follow:50% To Global Warming Non-Profit Organization. 50% In activities supporting making this world a better place such as building and renovating schools and hospitals in underdeveloped countries, helping youth stay on the right path, reinsertion into the society of formerly incarcerated individuals and helping the social outcasts find a place where they belong.
+            <textarea id="myTextArea" rows="20" class="interim">We use 100% recycled paper, prioritize digital version and work with green hosting services who work with wind power, for this purpose we are green certified.We donate 100% of the profits we make as follow:50% To Global Warming Non-Profit Organization. 50% In activities supporting making this world a better place such as building and renovating schools and hospitals in underdeveloped countries, helping youth stay on the right path, reinsertion into the society of formerly incarcerated individuals and helping the social outcasts find a place where they belong.
                 </textarea>
+        </div>
+        <form>
+            <!-- <input type="text" class="txt"> -->
+            <div class="controls center">
+                <button id="play" onclick="playSpeech(event)">Play</button>
+                <button id="pause" onclick="pauseSpeech(event)">Pause</button>
+                <button id="resume" onclick="resumeSpeech(event)">Resume</button>
+                <button id="stop" onclick="stopSpeech(event)">Stop</button>
             </div>
-            <form>
-                <!-- <input type="text" class="txt"> -->
-                <div class="controls center">
-                    <button id="play" onclick="playSpeech(event)">Play</button>
-                    <button id="pause" onclick="pauseSpeech(event)">Pause</button>
-                    <button id="resume" onclick="resumeSpeech(event)">Resume</button>
-                    <button id="stop" onclick="stopSpeech(event)">Stop</button>
-                </div>
-                <div>
-                    <input id="input-file" type="file">
-                </div>
-                <div>
-                    <label for="rate">Rate</label><input type="range" min="0.5" max="2" value="1" step="0.1" id="rate"
-                        onchange="outputrate.value=value">
-                    <output id="outputrate">1</output>
-                </div>
-                <!-- <div class="rate-value"></div>
+            <div>
+                <input id="input-file" type="file">
+            </div>
+            <div>
+                <label for="rate">Rate</label><input type="range" min="0.5" max="2" value="1" step="0.1" id="rate"
+                    onchange="outputrate.value=value">
+                <output id="outputrate">1</output>
+            </div>
+            <!-- <div class="rate-value"></div>
                     <div class="clearfix"></div> -->
-                <div>
-                    <label for="pitch">Pitch</label><input type="range" min="0" max="2" value="1" step="0.1" id="pitch"
-                        onchange="outputpitch.value=value">
-                    <output id="outputpitch">1</output>
-                </div>
-                <!-- <div>
+            <div>
+                <label for="pitch">Pitch</label><input type="range" min="0" max="2" value="1" step="0.1" id="pitch"
+                    onchange="outputpitch.value=value">
+                <output id="outputpitch">1</output>
+            </div>
+            <!-- <div>
                     <label for="pitch">Pitch</label><input type="range" min="0" max="2" value="1" step="0.1" id="pitch" onchange="outputpitch.value=value">
                     <output id="outputpitch">1</output>
                     <div class="pitch-value">1</div>
                     <div class="clearfix"></div>
                 </div> -->
-                <!-- <select>
+            <!-- <select>
             </select> -->
-                <script>
-                    document.getElementById('input-file').addEventListener('change', getFile)
+            <script>
+                document.getElementById('input-file').addEventListener('change', getFile)
 
-                    function getFile(event) {
-                        const input = event.target
-                        if ('files' in input && input.files.length > 0) {
-                            if (input.files[0].name.endsWith('txt')) {
-                                placeFileContent(
-                                    document.getElementById('myTextArea'),
-                                    input.files[0])
-                            } else if (input.files[0].name.endsWith('pdf')) {
-                                var file = input.files[0];
-                                var fileReader = new FileReader();
+                function getFile(event) {
+                    const input = event.target
+                    if ('files' in input && input.files.length > 0) {
+                        if (input.files[0].name.endsWith('txt')) {
+                            placeFileContent(
+                                document.getElementById('myTextArea'),
+                                input.files[0])
+                        } else if (input.files[0].name.endsWith('pdf')) {
+                            var file = input.files[0];
+                            var fileReader = new FileReader();
 
-                                fileReader.onload = function () {
+                            fileReader.onload = function () {
 
-                                    //Turn array buffer into typed array
-                                    var typedarray = new Uint8Array(this.result);
+                                //Turn array buffer into typed array
+                                var typedarray = new Uint8Array(this.result);
 
-                                    //calling function to read from pdf file
-                                    getText(typedarray).then(function (text) {
+                                //calling function to read from pdf file
+                                getText(typedarray).then(function (text) {
 
-                                        /*Selected pdf file content is in the variable text. */
-                                        // $("#myTextArea").html(text);
-                                        document.getElementById("myTextArea").value = text;
-                                    }, function (reason) //Execute only when there is some error while reading pdf file
-                                    {
-                                        alert('Seems this file is broken, please upload another file');
-                                        console.error(reason);
-                                    });
+                                    /*Selected pdf file content is in the variable text. */
+                                    // $("#myTextArea").html(text);
+                                    document.getElementById("myTextArea").value = text;
+                                }, function (reason) //Execute only when there is some error while reading pdf file
+                                {
+                                    alert('Seems this file is broken, please upload another file');
+                                    console.error(reason);
+                                });
 
-                                    //getText() function definition. This is the pdf reader function.
-                                    function getText(typedarray) {
+                                //getText() function definition. This is the pdf reader function.
+                                function getText(typedarray) {
 
-                                        //PDFJS should be able to read this typedarray content
+                                    //PDFJS should be able to read this typedarray content
 
-                                        var pdf = PDFJS.getDocument(typedarray);
-                                        return pdf.then(function (pdf) {
+                                    var pdf = PDFJS.getDocument(typedarray);
+                                    return pdf.then(function (pdf) {
 
-                                            // get all pages text
-                                            var maxPages = pdf.pdfInfo.numPages;
-                                            var countPromises = [];
-                                            // collecting all page promises
-                                            for (var j = 1; j <= maxPages; j++) {
-                                                var page = pdf.getPage(j);
+                                        // get all pages text
+                                        var maxPages = pdf.pdfInfo.numPages;
+                                        var countPromises = [];
+                                        // collecting all page promises
+                                        for (var j = 1; j <= maxPages; j++) {
+                                            var page = pdf.getPage(j);
 
-                                                var txt = "";
-                                                countPromises.push(page.then(function (page) {
-                                                    // add page promise
-                                                    var textContent = page.getTextContent();
+                                            var txt = "";
+                                            countPromises.push(page.then(function (page) {
+                                                // add page promise
+                                                var textContent = page.getTextContent();
 
-                                                    return textContent.then(function (text) {
-                                                        // return content promise
-                                                        return text.items.map(function (s) {
-                                                            return s.str;
-                                                        }).join(''); // value page text
-                                                    });
-                                                }));
-                                            }
+                                                return textContent.then(function (text) {
+                                                    // return content promise
+                                                    return text.items.map(function (s) {
+                                                        return s.str;
+                                                    }).join(''); // value page text
+                                                });
+                                            }));
+                                        }
 
-                                            // Wait for all pages and join text
-                                            return Promise.all(countPromises).then(function (texts) {
-                                                return texts.join('');
-                                            });
+                                        // Wait for all pages and join text
+                                        return Promise.all(countPromises).then(function (texts) {
+                                            return texts.join('');
                                         });
-                                    }
-                                };
-                                //Read the file as ArrayBuffer
-                                fileReader.readAsArrayBuffer(file);
-                            }
-
+                                    });
+                                }
+                            };
+                            //Read the file as ArrayBuffer
+                            fileReader.readAsArrayBuffer(file);
                         }
+
                     }
+                }
 
-                    function placeFileContent(target, file) {
-                        readFileContent(file).then(content => {
-                            target.value = content
-                        }).catch(error => console.log(error))
-                    }
+                function placeFileContent(target, file) {
+                    readFileContent(file).then(content => {
+                        target.value = content
+                    }).catch(error => console.log(error))
+                }
 
-                    function readFileContent(file) {
-                        const reader = new FileReader()
-                        return new Promise((resolve, reject) => {
-                            reader.onload = event => resolve(event.target.result)
-                            reader.onerror = error => reject(error)
-                            reader.readAsText(file)
-                        })
-                    }
-                </script>
-            </form>
-        </div>
+                function readFileContent(file) {
+                    const reader = new FileReader()
+                    return new Promise((resolve, reject) => {
+                        reader.onload = event => resolve(event.target.result)
+                        reader.onerror = error => reject(error)
+                        reader.readAsText(file)
+                    })
+                }
+            </script>
+        </form>
+    </div>
 
-        <!-- <input type="button" id="toggle" value="Wake Lock is disabled" /> -->
+    <!-- <input type="button" id="toggle" value="Wake Lock is disabled" /> -->
 
-        <!-- <script>
+    <!-- <script>
             var noSleep = new NoSleep();
 
             var wakeLockEnabled = false;
@@ -532,8 +553,8 @@
             }, false);
         </script> -->
 
-        
-        <!-- <div data-role="footer"
+
+    <!-- <div data-role="footer"
             style="background:linear-gradient(rgb(34, 34, 187),rgb(30, 37, 116)); position:relative;color: black;width: 100%; bottom: 0%;margin-bottom: 0px;">
             <h5><span style="color: aliceblue;">&nbsp;&nbsp;CopyRight © 2020.</span>
                 <br><a style="margin-left: 16px; color: rgb(255, 255, 255);"
