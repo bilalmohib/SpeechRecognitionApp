@@ -1,4 +1,16 @@
 
+function showSpeechToText()
+{
+    document.getElementById("SpeechToText").style.display="block";
+    document.getElementById("TextToSpeech").style.display="none";
+}
+
+
+function showTextToSpeech()
+{
+    document.getElementById("SpeechToText").style.display="none";
+    document.getElementById("TextToSpeech").style.display="block";
+}
 
 var spaceNum = 1;
 var space = false;
@@ -367,6 +379,8 @@ function upgrade() {
 
 var two_line = /\n\n/g;
 var one_line = /\n/g;
+
+
 
 function linebreak(s) {
     return s.replace(two_line, '<p></p>').replace(one_line, '<br>');

@@ -292,4 +292,51 @@ body {
                     font-weight: bolder;
 
                 }
+                #toolBar1{
+                    display: flex;
+                }
+
 /* /////////////////////////////////////////////This is for the text editor/////////////////////// */
+#putbreak{
+    display: none;
+}
+#toolBar0{
+    display: none;    
+}
+
+/* For making responsive */
+@media all and (max-width:1000px) 
+{
+    /* #toolBar1{
+        display: inline;
+    }
+    .make-margin{
+        
+        margin-left: 500px;
+    } */
+    #toolBar1 select { font-size:12px; margin-left: 1%; max-width: 25%}
+}
+#TextToSpeech{
+    display: none;
+}
+@media all and (max-width:700px) 
+{
+    #putbreak{
+        display: block;
+    }
+    /* #toolBar1{
+        display: inline;
+    }
+    .make-margin{
+        
+        margin-left: 500px;
+    } */
+    #toolBar1{
+       display: none;
+    }
+    #toolBar0{
+display: flex;
+/* flex-direction: column; */
+    }
+}
+/* For making responsive */
