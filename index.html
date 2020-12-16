@@ -56,13 +56,13 @@
                 <h1 class="bg-info text-dark">Web Speech</h1>
             </div>
         </div>
-        <div>
+        <div style="margin-left: 10px;">
             <button class="btn btn-lg btn-outline-primary" onclick="showSpeechToText()">Speech To Text</button>
             <button class="btn btn-lg btn-outline-dark" onclick="showTextToSpeech()">Text To Speech</button>
+            <br>
         </div>
         <!-- <body onload="initDoc();"> -->
-        <form id="SpeechToText" name="compForm" method="post" action="sample.php"
-            onsubmit="if(validateMode()){this.myDoc.value=oDoc.innerHTML;return true;}return false;">
+        <form id="SpeechToText" name="compForm">
             <input type="hidden" name="myDoc">
             <div id="toolBar1">
                 <select style="margin-left: 0px;" class="make-margin form-control"
@@ -255,9 +255,9 @@
 
 
             <!-- <div id="textBox" contenteditable="true"><p>Lorem ipsum</p></div> -->
-            <!-- <p style="margin-left: 10px;" id="editMode"><input type="checkbox" name="switchMode" id="switchBox"
-                    onchange="setDocMode(this.checked);" /> <label for="switchBox">Show HTML</label></p>
-            <p style="display: none;"><input type="submit" value="Send" /></p> -->
+            <p style="margin-left: 10px;" id="editMode"><input type="checkbox" name="switchMode" id="switchBox"
+                    onchange="setDocMode(this.checked);" /> <label for="switchBox">Show HTML</label></p> 
+            <p style="display: none;"><input type="submit" value="Send" /></p> 
 
 
 
@@ -301,16 +301,17 @@
             </div>
             <div class="center">
                 <div id="butttonImp">
-                    <div class="sidebyside" style="text-align:right">
-                        <button id="copy_button" class="button" onclick="">
+                    <div class="sidebyside">
+                        <button id="copy_button" type="button" class="button" onclick="copyButton()">
                             Save txt</button>
 
                     </div>
                     <div class="sidebyside">
-                        <button id="email_button" class="button" onclick="generatePDF()">
+                        <button id="email_button" type="button" class="button" onclick="generatePDF()">
                             Save PDF</button>
 
                     </div>
+                
                 </div>
                 <p>
                 <div id="div_language">

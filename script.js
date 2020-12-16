@@ -311,7 +311,8 @@ if (!('webkitSpeechRecognition' in window)) {
     };
     //Here the speech will end
     function endSpeechRecognition() {
-        document.getElementById("butttonImp").style.display="block";
+
+        document.getElementById("butttonImp").style.display="inline-block";
         showInfo('info_start');
         //showInfo('');
         noSleep.disable(); // let the screen turn off.
@@ -409,7 +410,10 @@ function copyButton() {
         recognizing = false;
         recognition.stop();
     }
-    copy_button.style.display = 'none';
+    let copytext=document.getElementById("final-span").innerHTML;
+    console.log("Ala phar copy:==> ",copytext);
+    // copy_button.style.display = 'none';
+    alert("Successfully copied text to clipboard");
     copy_info.style.display = 'inline-block';
     showInfo('');
 }
@@ -482,6 +486,7 @@ function showButtons(style) {
     if (style == current_style) {
         return;
     }
+    document.getElementById("butttonImp").style.display="inline-block";
     current_style = style;
     copy_button.style.display = style;
     email_button.style.display = style;
